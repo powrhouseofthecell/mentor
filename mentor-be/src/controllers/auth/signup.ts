@@ -1,7 +1,18 @@
-import { Response, Request, NextFunction } from 'express';
+import User from "../../models/entities/user";
+import { Response, Request, NextFunction } from "express";
 
-export default function signup(req: Request, res: Response, _next: NextFunction) {
+export default async function signup(
+  req: Request,
+  res: Response,
+  _next: NextFunction,
+) {
   const { username, email, password } = req.body;
+
+  try {
+    await User.create({ email, password });
+  } catch (error) {
+    throw new Error("can not create user");
+  }
 
   res.send({
     username,
