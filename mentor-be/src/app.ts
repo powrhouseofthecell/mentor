@@ -1,6 +1,9 @@
 import express from "express";
 import dotenv from "dotenv";
 import cookie_parser from "cookie-parser";
+import { Request, Response, NextFunction } from "express";
+
+import protect from "./controllers/auth/protect";
 
 const app = express();
 dotenv.config();
@@ -20,8 +23,18 @@ const PORT = process.env.PORT;
 
 app.use("/api/v1", router);
 
-app.get("/hello", (req, res, _next) => {
-  res.send(req.cookies);
+app.get("/hello", protect, (_req, res, _next) => {
+  res.send({
+    error: false,
+    data: "You are authenticated",
+  });
+});
+
+app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+  console.log("============================");
+  console.log(err);
+  console.log("============================");
+  res.send({ error: true, message: err.message });
 });
 
 create_db_con(DB_URI)
