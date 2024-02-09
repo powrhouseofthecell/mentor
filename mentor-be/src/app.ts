@@ -20,11 +20,10 @@ const PORT = process.env.PORT;
 
 app.use('/api/v1', router);
 
-app.get('/hello', protect, (_req, res, _next) => {
-  res.send({
-    error: false,
-    data: 'You are authenticated',
-  });
+// Testing protect
+// TODO: Request type
+app.get('/protect', protect, (req: any, res: Response, _next: NextFunction) => {
+  res.send(req.user);
 });
 
 app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
