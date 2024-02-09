@@ -1,8 +1,10 @@
-import { Response, Request, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import User from '../../models/entities/user';
+// import { Custom_Request } from '../../types/controller_params';
 
-export default async function protect(req: Request, _res: Response, next: NextFunction) {
+// TODO: Fix the request type (probably add types to the model)
+export default async function protect(req: any, _res: Response, next: NextFunction) {
   let token: string | null = null;
   // Find token in authorization headers or cookies
 
@@ -20,12 +22,12 @@ export default async function protect(req: Request, _res: Response, next: NextFu
       exp: any;
     };
     const id = decoded.userid;
-    console.log(id, 'this is the id');
     const user = await User.findById(id);
-    if (user) next();
+    if (user) {
+      req.user = user;
+      next();
+    }
   } catch (error) {
     next(error);
   }
-
-  next();
 }

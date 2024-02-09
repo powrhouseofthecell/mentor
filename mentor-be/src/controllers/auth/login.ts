@@ -13,7 +13,11 @@ function sign_access_token(userid: any) {
   return token;
 }
 
-export default async function login(req: Request, res: Response, _next: NextFunction) {
+type Custom_Req = Request & {
+  user?: any;
+};
+
+export default async function login(req: Custom_Req, res: Response, _next: NextFunction) {
   const { email, password } = req.body;
   try {
     //TODO: Make this more moduler
@@ -38,7 +42,8 @@ export default async function login(req: Request, res: Response, _next: NextFunc
     } as CookieOptions;
     res.cookie('auth_token', token, cookie_options);
 
-    console.log(token);
+    req.user = user;
+
     res.send(user);
   } catch (error) {
     throw new Error(error);
