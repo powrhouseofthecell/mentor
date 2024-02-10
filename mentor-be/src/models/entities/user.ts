@@ -10,6 +10,19 @@ const user_schema = new Schema({
   password: {
     type: String,
   },
+  role: {
+    type: String,
+    enum: ['mentor', 'mentee', 'admin'],
+    default: 'mentee',
+  },
+  followers: {
+    type: Array,
+    default: [],
+  },
+  following: {
+    type: Array,
+    default: [],
+  },
 });
 
 user_schema.pre('save', async function (next) {
@@ -18,6 +31,6 @@ user_schema.pre('save', async function (next) {
   next();
 });
 
-const User = model('user', user_schema);
+const User = model('User', user_schema);
 
 export default User;
