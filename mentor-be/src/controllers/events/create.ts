@@ -8,18 +8,14 @@ type Custom_Req = Request & {
 export default async function create(req: Custom_Req, res: Response, next: NextFunction) {
   try {
     const { event_name, event_date } = req.body;
-    if (req.user.role === 'mentor' || req.user.role === 'admin') {
-      const event = await Event.create({ event_name, event_date });
-      res.send({
-        status: 'success',
-        data: event,
-      });
-    } else {
-      res.send({
-        status: 'error',
-        message: 'Only admin/mentor can create events.',
-      });
-    }
+    // const user_id = req.user._id.valueOf();
+    // to convert ObjectId to string
+    const user_id = req.user._id.toString();
+    const event = await Event.create({ event_name, event_date, created_by: user_id });
+    res.send({
+      status: 'success',
+      data: event,
+    });
   } catch (error) {
     next(error);
   }
