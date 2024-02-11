@@ -1,8 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 
-type Custom_Req = Request & {
-  user?: any;
-};
+import { Custom_Req } from '../types/custom_params';
 
 export default function role_check(req: Custom_Req, _res: Response, next: NextFunction) {
   try {

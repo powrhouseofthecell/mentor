@@ -1,10 +1,10 @@
 import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import User from '../../models/entities/user';
-// import { Custom_Request } from '../../types/controller_params';
+import { Custom_Req } from '../../types/custom_params';
 
 // TODO: Fix the request type (probably add types to the model)
-export default async function protect(req: any, _res: Response, next: NextFunction) {
+export default async function protect(req: Custom_Req, _res: Response, next: NextFunction) {
   let token: string | null = null;
   // Find token in authorization headers or cookies
 

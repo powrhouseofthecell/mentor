@@ -1,8 +1,10 @@
-import { Response, Request, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 import User from '../../models/entities/user';
 import bcrypt from 'bcrypt';
 import { type CookieOptions } from 'express';
 import jwt from 'jsonwebtoken';
+
+import { Custom_Req } from '../../types/custom_params';
 
 // TODO: Fix the type issue.
 function sign_access_token(userid: any) {
@@ -12,10 +14,6 @@ function sign_access_token(userid: any) {
 
   return token;
 }
-
-type Custom_Req = Request & {
-  user?: any;
-};
 
 export default async function login(req: Custom_Req, res: Response, _next: NextFunction) {
   const { email, password } = req.body;

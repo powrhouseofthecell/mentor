@@ -1,9 +1,7 @@
-import { Request, Response, NextFunction } from 'express';
+import { Response, NextFunction } from 'express';
 import Event from '../../models/entities/events';
 
-type Custom_Req = Request & {
-  user?: any;
-};
+import { Custom_Req } from '../../types/custom_params';
 
 export default async function create(req: Custom_Req, res: Response, next: NextFunction) {
   try {
