@@ -27,4 +27,11 @@ router.put(
   events_controller.update,
 );
 
+router.delete(
+  "/update/:id",
+  auth_controller.protect,
+  middlewares.role_check,
+  events_controller.delete_event,
+);
+
 export default router;
