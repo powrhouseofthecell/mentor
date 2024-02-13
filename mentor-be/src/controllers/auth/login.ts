@@ -1,21 +1,25 @@
-import { Response, NextFunction } from 'express';
-import User from '../../models/entities/user';
-import bcrypt from 'bcrypt';
-import { type CookieOptions } from 'express';
-import jwt from 'jsonwebtoken';
+import { Response, NextFunction } from "express";
+import User from "../../models/entities/user";
+import bcrypt from "bcrypt";
+import { type CookieOptions } from "express";
+import jwt from "jsonwebtoken";
 
-import { Custom_Req } from '../../types/custom_params';
+import { Custom_Req } from "../../types/custom_params";
 
 // TODO: Fix the type issue.
 function sign_access_token(userid: any) {
   const token = jwt.sign({ userid }, process.env.JWT_SECRET as string, {
-    expiresIn: '4d',
+    expiresIn: "4d",
   });
 
   return token;
 }
 
-export default async function login(req: Custom_Req, res: Response, _next: NextFunction) {
+export default async function login(
+  req: Custom_Req,
+  res: Response,
+  _next: NextFunction,
+) {
   const { email, password } = req.body;
   try {
     //TODO: Make this more moduler
@@ -25,7 +29,7 @@ export default async function login(req: Custom_Req, res: Response, _next: NextF
     // 2. Compare the has with the 'password'
     const match = await bcrypt.compare(password, user?.password as string);
 
-    if (!match) throw new Error('User not found');
+    if (!match) throw new Error("User not found");
     // 3. Generate a token.
     const token = sign_access_token(user?._id);
     // 4. Set cookie
@@ -36,9 +40,9 @@ export default async function login(req: Custom_Req, res: Response, _next: NextF
       expires: new Date(Date.now() + expires_in * 86400000),
       httpOnly: true,
       secure: true,
-      sameSite: 'none',
+      sameSite: "none",
     } as CookieOptions;
-    res.cookie('auth_token', token, cookie_options);
+    res.cookie("auth_token", token, cookie_options);
 
     req.user = user;
 
