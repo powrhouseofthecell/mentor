@@ -18,7 +18,7 @@ function sign_access_token(userid: any) {
 export default async function login(
   req: Custom_Req,
   res: Response,
-  _next: NextFunction,
+  next: NextFunction,
 ) {
   const { email, password } = req.body;
   try {
@@ -27,6 +27,8 @@ export default async function login(
     const user = await User.findOne({ email });
 
     // 2. Compare the has with the 'password'
+    if (!user)
+      throw new Error("User not found with that email/password, please signup");
     const match = await bcrypt.compare(password, user?.password as string);
 
     if (!match) throw new Error("User not found");
@@ -48,6 +50,6 @@ export default async function login(
 
     res.send(user);
   } catch (error) {
-    throw new Error(error);
+    next(error);
   }
 }
