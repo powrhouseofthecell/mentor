@@ -6,17 +6,12 @@ export default async function signup(
   res: Response,
   next: NextFunction,
 ) {
-  const { username, email, password } = req.body;
+  const { name, email, password } = req.body;
 
   try {
-    await User.create({ email, password });
+    const user = await User.create({ name, email, password });
+    res.send(user);
   } catch (error) {
     next("can not create user");
   }
-
-  res.send({
-    username,
-    email,
-    password,
-  });
 }

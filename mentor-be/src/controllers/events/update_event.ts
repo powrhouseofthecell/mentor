@@ -7,10 +7,14 @@ export default async function update(
   _next: NextFunction,
 ) {
   const { id } = req.params;
-  const { event_name, event_date } = req.body;
+  const { event_name, event_date, event_description } = req.body;
 
   try {
-    const e = await Event.findByIdAndUpdate(id, { event_name, event_date });
+    const e = await Event.findByIdAndUpdate(id, {
+      event_name,
+      event_date,
+      event_description,
+    });
     res.send(e);
   } catch (error) {
     throw new Error(error);

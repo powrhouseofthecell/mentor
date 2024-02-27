@@ -11,8 +11,10 @@ export default async function get_all_events(
   next: NextFunction,
 ) {
   try {
-    // const events = await Event.find({}).populate('created_by');
-    const events = await Event.find({});
+    const events = await Event.find({})
+      .populate("organised_by")
+      .populate("attended_by");
+    // const events = await Event.find({});
     res.send({
       status: "success",
       data: events,

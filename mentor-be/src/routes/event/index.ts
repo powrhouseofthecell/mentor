@@ -34,4 +34,11 @@ router.delete(
   events_controller.delete_event,
 );
 
+router.post(
+  "/attend/:id",
+  auth_controller.protect,
+  middlewares.role_check,
+  events_controller.attend_event,
+);
+
 export default router;

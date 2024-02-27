@@ -2,12 +2,20 @@ import express from "express";
 import dotenv from "dotenv";
 import cookie_parser from "cookie-parser";
 import { Request, Response, NextFunction } from "express";
+import cors from "cors";
 
 const app = express();
 dotenv.config();
 
 import router from "./routes/router";
 import create_db_con from "./db/create_con";
+
+app.use(
+  cors({
+    origin: ["http://localhost:3000"],
+    credentials: true,
+  }),
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

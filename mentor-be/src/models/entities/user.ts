@@ -4,6 +4,9 @@ import bcrypt from "bcrypt";
 // TODO: Write a validator for email.
 
 const user_schema = new Schema({
+  name: {
+    type: String,
+  },
   email: {
     type: String,
   },
