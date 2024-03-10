@@ -15,6 +15,7 @@ export default async function update(
       event_date,
       event_description,
     });
+    // TODO: on returning the data it returns the old data
     res.send(e);
   } catch (error) {
     throw new Error(error);
