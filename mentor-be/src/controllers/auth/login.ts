@@ -31,7 +31,7 @@ export default async function login(
       throw new Error("User not found with that email/password, please signup");
     const match = await bcrypt.compare(password, user?.password as string);
 
-    if (!match) throw new Error("User not found");
+    if (!match) throw new Error("Email/Password is incorrect");
     // 3. Generate a token.
     const token = sign_access_token(user?._id);
     // 4. Set cookie
@@ -46,6 +46,7 @@ export default async function login(
     } as CookieOptions;
     res.cookie("auth_token", token, cookie_options);
 
+    // TODO: Do I need to do it here.
     req.user = user;
 
     res.send(user);
