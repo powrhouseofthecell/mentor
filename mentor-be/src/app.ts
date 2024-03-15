@@ -3,12 +3,10 @@ import dotenv from "dotenv";
 import cookie_parser from "cookie-parser";
 import { Request, Response, NextFunction } from "express";
 import cors from "cors";
+import router from "./routes/router";
 
 const app = express();
 dotenv.config();
-
-import router from "./routes/router";
-import create_db_con from "./db/create_con";
 
 app.use(
   cors({
@@ -21,24 +19,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookie_parser());
 
-const DB_URI = process.env.DB_URI?.replace(
-  "<password>",
-  process.env.DB_PASSWORD as string,
-) as string;
-const PORT = process.env.PORT;
-
 app.use("/api/v1", router);
 
 app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-  res.send({ error: true, message: err.message });
+  // how to handle the status code properly
+  // 1. Have it based on the err.message from a json file?
+  res.status(400).send({ error: true, message: err.message });
 });
 
-create_db_con(DB_URI)
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`🛢 DB connected and App started on port ${PORT} 🚀`);
-    });
-  })
-  .catch((err) => {
-    console.log("DB not connected", err);
-  });
+export default app;

@@ -22,6 +22,7 @@ router.get(
   events_controller.get_all_user_events,
 );
 
+// if not authenticated still get 200 statusCode.
 router.post(
   "/create",
   auth_controller.protect,
