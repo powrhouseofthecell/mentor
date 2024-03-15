@@ -1,5 +1,5 @@
 import app from "./app";
-import create_db_con from "./db/create_con";
+import create_db_con from "./utils/db/create_con";
 
 const DB_URI = process.env.DB_URI?.replace(
   "<password>",
