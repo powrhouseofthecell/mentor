@@ -4,6 +4,7 @@ import path from 'path';
 
 import multer from 'multer';
 import resources_controller from '../../controllers/resources';
+import auth_controller from '../../controllers/auth';
 
 const upload_path = path.join(__dirname, '../../public/uploads');
 
@@ -16,12 +17,10 @@ const storage = multer.diskStorage({
   },
 });
 
-router.get('/', resources_controller.get_all_resources);
-
 const uploadStorage = multer({ storage: storage });
 
-router.post('/upload', uploadStorage.single('file'), resources_controller.upload);
-
-router.get('/download/:filename', resources_controller.download);
+router.get('/', auth_controller.protect, resources_controller.get_all_resources);
+router.post('/upload', auth_controller.protect, uploadStorage.single('file'), resources_controller.upload);
+router.get('/download/:filename', auth_controller.protect, resources_controller.download);
 
 export default router;

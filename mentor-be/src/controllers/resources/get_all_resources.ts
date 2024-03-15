@@ -4,7 +4,6 @@ import fs from 'fs';
 
 export default function get_all_resources(_req: Request, res: Response, _next: NextFunction) {
   const path_down = path.join(__dirname, '../../public/uploads');
-  console.log(path_down);
 
   fs.readdir(path_down, (err, files) => {
     if (err) {
