@@ -4,9 +4,13 @@ import cookie_parser from "cookie-parser";
 import { Request, Response, NextFunction } from "express";
 import cors from "cors";
 import router from "./routes/router";
+import path from "path";
 
 const app = express();
 dotenv.config();
+
+app.use(express.static(path.join(__dirname, "public")));
+console.log(path.join(__dirname, "public"));
 
 app.use(
   cors({
@@ -22,7 +26,7 @@ app.use(cookie_parser());
 app.use("/api/v1", router);
 
 app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-  // how to handle the status code properly
+  // handle the status code properly
   // 1. Have it based on the err.message from a json file?
   res.status(400).send({ error: true, message: err.message });
 });
