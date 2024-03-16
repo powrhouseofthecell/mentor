@@ -3,9 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/theme-provider';
-import { ModeToggle } from '@/components/theme-switch';
-import { NavigationMenuDemo } from '@/components/navigation-menu';
-
+import { DropdownMenuDemo } from '@/components/menu-dropdown';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -21,9 +19,10 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <ModeToggle />
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
-          <NavigationMenuDemo />
+          <div className='flex justify-end'>
+            <DropdownMenuDemo />
+          </div>
           {children}
         </ThemeProvider>
 

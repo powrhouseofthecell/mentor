@@ -1,16 +1,13 @@
 'use client';
-// import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
-import { BellIcon, CheckIcon } from '@radix-ui/react-icons';
-
+import { BellIcon, CheckIcon, Pencil1Icon } from '@radix-ui/react-icons';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { BASE_URL } from '../../../../config';
-// import { Switch } from '@/components/ui/switch';
+import { DialogDemo } from '@/components/edit-event';
 
 type CardProps = React.ComponentProps<typeof Card>;
 
@@ -55,8 +52,13 @@ export default function CardDemo({ className, ...props }: CardProps) {
           return (
             <Card key={idx} className={cn('w-[380px]', className)} {...props}>
               <CardHeader>
-                <CardTitle>{event.event_name}</CardTitle>
-                <CardDescription>{}</CardDescription>
+                <CardTitle className='flex justify-between'>
+                  {event.event_name}
+
+                  <span>
+                    <DialogDemo />
+                  </span>
+                </CardTitle>
               </CardHeader>
               <CardContent className='grid gap-4'>
                 <div className=' flex items-center space-x-4 rounded-md border p-4'>
@@ -66,7 +68,6 @@ export default function CardDemo({ className, ...props }: CardProps) {
                     <p className='text-sm text-muted-foreground'> {event.organised_by.name}</p>
                     <p className='text-sm text-muted-foreground text-stone-300'>{event.event_date}</p>
                   </div>
-                  {/* <Switch /> */}
                 </div>
                 <div>
                   <div className='mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0'>
