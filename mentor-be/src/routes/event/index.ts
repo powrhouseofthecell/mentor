@@ -8,17 +8,11 @@ import middlewares from "../../middleware/";
 // router.post('/create', auth_controller.protect, events_controller.create);
 // router.route('/create').post(auth_controller.protect, events_controller.create);
 
-router.get(
-  "/",
-  auth_controller.protect,
-  middlewares.role_check,
-  events_controller.get_all_events,
-);
+router.get("/", auth_controller.protect, events_controller.get_all_events);
 
 router.get(
   "/user",
   auth_controller.protect,
-  middlewares.role_check,
   events_controller.get_all_user_events,
 );
 
