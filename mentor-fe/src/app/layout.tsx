@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang='en'>
       <body className={inter.className}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
-          <div className='flex justify-end'>
+          <div className='py-2 absolute right-0'>
             <DropdownMenuDemo />
           </div>
           {children}

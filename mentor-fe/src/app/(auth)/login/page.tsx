@@ -13,6 +13,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/use-toast';
 import { CheckCircledIcon } from '@radix-ui/react-icons';
+import Link from 'next/link';
 
 const formSchema = z.object({
   // name: z.string().min(2, {
@@ -36,24 +37,28 @@ export default function ProfileForm() {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     const url = `${BASE_URL}/auth/login`;
-    const response = await axios({
-      method: 'POST',
-      url,
-      data: values,
-      withCredentials: true,
-    });
-    if (!response.data.error) {
-      toast({
-        description: 'Login Successful',
+    try {
+      const response = await axios({
+        method: 'POST',
+        url,
+        data: values,
+        withCredentials: true,
       });
-      localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('user_id', response.data._id);
-      router.push('/events');
-    } else {
+      if (!response.data.error) {
+        toast({
+          description: 'Login Successful',
+        });
+        localStorage.setItem('isLoggedIn', 'true');
+        localStorage.setItem('user_id', response.data._id);
+        router.push('/events');
+      }
+    } catch (error: any) {
+      console.log(error);
       toast({
         variant: 'destructive',
         title: 'Uh oh! Something went wrong.',
-        description: `${response.data.message}`,
+        // description: `${response.data.message}`,
+        description: `${error.response.data.message}`, //
       });
     }
   }
@@ -61,7 +66,9 @@ export default function ProfileForm() {
   return (
     <Form {...form}>
       <div className='form_container flex items-center justify-center h-lvh'>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className='px-16 py-24 border-solid border-2 border-gray-600 rounded-2xl space-y-8'>
           {/*  */}
           <FormField
             control={form.control}
@@ -84,15 +91,23 @@ export default function ProfileForm() {
               <FormItem className='w-96'>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input placeholder='' {...field} />
+                  <Input type='password' placeholder='' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button className='w-48' type='submit'>
+          <Button className='w-full' type='submit'>
             Login
           </Button>
+
+          <p className='text-sm'>
+            Are you new here?
+            <Link href={'/signup'}>
+              {' '}
+              <span className='text-blue-600'>signup</span>
+            </Link>
+          </p>
         </form>
       </div>
     </Form>

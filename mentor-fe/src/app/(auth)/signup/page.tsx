@@ -13,6 +13,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/use-toast';
 import { CheckCircledIcon } from '@radix-ui/react-icons';
+import Link from 'next/link';
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -76,7 +77,9 @@ export default function ProfileForm() {
   return (
     <Form {...form}>
       <div className='form_container flex items-center justify-center h-lvh'>
-        <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className='px-16 py-24 border-solid border-2 border-gray-600 rounded-2xl space-y-8'>
           <FormField
             control={form.control}
             name='name'
@@ -112,15 +115,23 @@ export default function ProfileForm() {
               <FormItem className='w-96'>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input placeholder='' {...field} />
+                  <Input type='password' placeholder='' {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button className='w-48' type='submit'>
+          <Button className='w-full' type='submit'>
             Signup
           </Button>
+
+          <p className='text-sm'>
+            Already have an account?
+            <Link href={'/login'}>
+              {' '}
+              <span className='text-blue-600'>login</span>
+            </Link>
+          </p>
         </form>
       </div>
     </Form>

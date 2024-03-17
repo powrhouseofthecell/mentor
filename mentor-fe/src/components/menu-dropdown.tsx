@@ -5,13 +5,7 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import axios from 'axios';
@@ -19,10 +13,12 @@ import { BASE_URL } from '../../config';
 import { useToast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
 import { ModeToggle } from '@/components/theme-switch';
+import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 
 export function DropdownMenuDemo() {
   const router = useRouter();
   const { toast } = useToast();
+
   async function handle_logout() {
     const url = `${BASE_URL}/auth/logout`;
     const response = await axios({
@@ -44,10 +40,13 @@ export function DropdownMenuDemo() {
       });
     }
   }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='outline'>Open</Button>
+        <Button variant='outline'>
+          <HamburgerMenuIcon />
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='w-56'>
         <span>
