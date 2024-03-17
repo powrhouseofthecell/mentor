@@ -40,7 +40,6 @@ router.delete(
 router.post(
   "/attend/:id",
   auth_controller.protect,
-  middlewares.role_check,
   events_controller.attend_event,
 );
 
