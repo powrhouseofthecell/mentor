@@ -47,7 +47,7 @@ export default function CardDemo({ className, ...props }: CardProps) {
 
   return (
     <>
-      <div className='flex flex-wrap gap-10 justify-center mt-12'>
+      <div className='flex flex-wrap gap-10 justify-center pt-16'>
         {events.map((event: any, idx: number) => {
           return (
             <Card key={idx} className={cn('w-[380px]', className)} {...props}>
