@@ -44,6 +44,7 @@ export default function ProfileForm() {
         });
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('user_id', response.data._id);
+        localStorage.setItem('user_role', response.data.role);
         router.push('/events');
       }
     } catch (error: any) {
