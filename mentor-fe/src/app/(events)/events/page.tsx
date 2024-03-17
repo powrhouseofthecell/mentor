@@ -48,13 +48,17 @@ export default function CardDemo({ className, ...props }: CardProps) {
     <>
       <div className='flex flex-wrap gap-10 justify-center pt-16'>
         {events.map((event: any, idx: number) => {
+          {
+            console.log(event.organised_by._id, 'the event id');
+            console.log(localStorage.getItem('user_id'), 'the user id');
+          }
           return (
             <Card key={idx} className={cn('w-[380px]', className)} {...props}>
               <CardHeader>
                 <CardTitle className='flex justify-between'>
                   {event.event_name}
                   <span>
-                    <Edit_Event id={event._id} />
+                    {localStorage.getItem('user_id') === event.organised_by._id ? <Edit_Event id={event._id} /> : ''}
                   </span>
                 </CardTitle>
               </CardHeader>
