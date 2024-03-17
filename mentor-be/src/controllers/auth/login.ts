@@ -27,11 +27,10 @@ export default async function login(
     const user = await User.findOne({ email });
 
     // 2. Compare the has with the 'password'
-    if (!user)
-      throw new Error("User not found with that email/password, please signup");
+    if (!user) throw new Error("user not found, please signup");
     const match = await bcrypt.compare(password, user?.password as string);
 
-    if (!match) throw new Error("Email/Password is incorrect");
+    if (!match) throw new Error("email or password is incorrect");
     // 3. Generate a token.
     const token = sign_access_token(user?._id);
     // 4. Set cookie
