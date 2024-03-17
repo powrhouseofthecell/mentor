@@ -10,11 +10,18 @@ import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
-export default function Date_Picker_With_Range({ className }: React.HTMLAttributes<HTMLDivElement>) {
+export default function Date_Picker_With_Range({ className, get_date }: React.HTMLAttributes<HTMLDivElement> | any) {
   const [date, setDate] = React.useState<DateRange | undefined>({
     from: new Date(2022, 0, 20),
     to: addDays(new Date(2022, 0, 20), 20),
   });
+
+  // sending props to the parent.
+  if (get_date) {
+    if (typeof get_date === 'function') {
+      get_date(date);
+    }
+  }
 
   return (
     <div className={cn('grid gap-2', className)}>
