@@ -48,6 +48,7 @@ export default function Edit_Event_Form({ id }: any) {
         description: `${error.response.data.message}`,
       });
     }
+    location.reload();
   }
   return (
     <Form {...form}>
