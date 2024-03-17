@@ -34,37 +34,24 @@ export default function ProfileForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const url = `${BASE_URL}/auth/signup`;
-    const response_signup = await axios({
-      method: 'POST',
-      url,
-      data: values,
-      withCredentials: true,
-    });
-    if (!response_signup.data.error) {
-      toast({
-        description: 'Signup successful',
+    try {
+      const response_signup = await axios({
+        method: 'POST',
+        url,
+        data: values,
+        withCredentials: true,
       });
-      router.push('/login');
-      // Automatic login after signup
-      // const { email, password } = values;
-      // const url = `${BASE_URL}/auth/login`;
-      // const response_login = await axios({
-      //   method: 'POST',
-      //   url,
-      //   data: { email, password },
-      //   withCredentials: true,
-      // });
-
-      // if (response_login.request.statusText === 'OK') {
-      //   router.push('/events');
-      // } else {
-      //   router.push('/login');
-      // }
-    } else {
+      if (!response_signup.data.error) {
+        toast({
+          description: 'Signup successful',
+        });
+        router.push('/login');
+      }
+    } catch (error: any) {
       toast({
         variant: 'destructive',
         title: 'Uh oh! Something went wrong.',
-        description: `${response_signup.data.message}`,
+        description: `${error.response.data.message}`,
       });
     }
   }
