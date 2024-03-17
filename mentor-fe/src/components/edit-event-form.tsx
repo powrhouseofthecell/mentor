@@ -14,8 +14,8 @@ import { useToast } from '@/components/ui/use-toast';
 import axios from 'axios';
 
 const formSchema = z.object({
-  event_name: z.string(),
-  event_description: z.string(),
+  event_name: z.any(),
+  event_description: z.any(),
   event_date: z.any(),
 });
 
