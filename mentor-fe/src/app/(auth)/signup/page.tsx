@@ -5,14 +5,13 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 
 import { BASE_URL } from '../../../../config';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/use-toast';
-import { CheckCircledIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
 
 const formSchema = z.object({
@@ -34,8 +33,6 @@ export default function ProfileForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     const url = `${BASE_URL}/auth/signup`;
     const response_signup = await axios({
       method: 'POST',
@@ -47,24 +44,22 @@ export default function ProfileForm() {
       toast({
         description: 'Signup successful',
       });
-      // localStorage.setItem('isLoggedIn', 'true');
-      // localStorage.setItem('user_id', response.data._id);
 
       // Automatic login after signup
-      const { email, password } = values;
-      const url = `${BASE_URL}/auth/login`;
-      const response_login = await axios({
-        method: 'POST',
-        url,
-        data: { email, password },
-        withCredentials: true,
-      });
+      // const { email, password } = values;
+      // const url = `${BASE_URL}/auth/login`;
+      // const response_login = await axios({
+      //   method: 'POST',
+      //   url,
+      //   data: { email, password },
+      //   withCredentials: true,
+      // });
 
-      if (response_login.request.statusText === 'OK') {
-        router.push('/events');
-      } else {
-        router.push('/login');
-      }
+      // if (response_login.request.statusText === 'OK') {
+      //   router.push('/events');
+      // } else {
+      //   router.push('/login');
+      // }
     } else {
       toast({
         variant: 'destructive',
