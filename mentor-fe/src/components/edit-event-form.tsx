@@ -26,7 +26,6 @@ export default function Edit_Event_Form({ id }: any) {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // const id = '65f539ded2e2dd29d55a7491';
     const url = `${BASE_URL}/events/${id}`;
 
     const { event_description, event_name } = values;
