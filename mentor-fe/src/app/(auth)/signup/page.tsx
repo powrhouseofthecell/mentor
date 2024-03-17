@@ -44,7 +44,7 @@ export default function ProfileForm() {
       toast({
         description: 'Signup successful',
       });
-
+      router.push('/login');
       // Automatic login after signup
       // const { email, password } = values;
       // const url = `${BASE_URL}/auth/login`;
