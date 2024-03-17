@@ -3,8 +3,9 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogT
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Pencil1Icon } from '@radix-ui/react-icons';
+import Date_Picker_With_Range from './date-picker-range';
 
-export function DialogDemo() {
+export default function Edit_Event() {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -30,6 +31,12 @@ export function DialogDemo() {
               Event description
             </Label>
             <Input id='username' className='col-span-3' />
+          </div>
+          <div className='grid grid-cols-4 items-center gap-4'>
+            <Label htmlFor='username' className='text-right'>
+              Event date
+            </Label>
+            <Date_Picker_With_Range />
           </div>
         </div>
         <DialogFooter>

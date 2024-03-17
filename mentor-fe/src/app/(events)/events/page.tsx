@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BASE_URL } from '../../../../config';
-import { DialogDemo } from '@/components/edit-event';
+import Edit_Event from '@/components/edit-event';
 
 type CardProps = React.ComponentProps<typeof Card>;
 
@@ -54,9 +54,8 @@ export default function CardDemo({ className, ...props }: CardProps) {
               <CardHeader>
                 <CardTitle className='flex justify-between'>
                   {event.event_name}
-
                   <span>
-                    <DialogDemo />
+                    <Edit_Event />
                   </span>
                 </CardTitle>
               </CardHeader>
