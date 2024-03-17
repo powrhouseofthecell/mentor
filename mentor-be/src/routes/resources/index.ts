@@ -1,12 +1,12 @@
-import express from 'express';
+import express from "express";
 const router = express.Router();
-import path from 'path';
+import path from "path";
 
-import multer from 'multer';
-import resources_controller from '../../controllers/resources';
-import auth_controller from '../../controllers/auth';
+import multer from "multer";
+import resources_controller from "../../controllers/resources";
+import auth_controller from "../../controllers/auth";
 
-const upload_path = path.join(__dirname, '../../public/uploads');
+const upload_path = path.join(__dirname, "../../public/uploads");
 
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => {
@@ -19,8 +19,21 @@ const storage = multer.diskStorage({
 
 const uploadStorage = multer({ storage: storage });
 
-router.get('/', auth_controller.protect, resources_controller.get_all_resources);
-router.post('/upload', auth_controller.protect, uploadStorage.single('file'), resources_controller.upload);
-router.get('/download/:filename', auth_controller.protect, resources_controller.download);
+router.get(
+  "/",
+  auth_controller.protect,
+  resources_controller.get_all_resources,
+);
+router.post(
+  "/upload",
+  auth_controller.protect,
+  uploadStorage.single("file"),
+  resources_controller.upload,
+);
+router.get(
+  "/download/:filename",
+  auth_controller.protect,
+  resources_controller.download,
+);
 
 export default router;

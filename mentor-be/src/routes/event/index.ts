@@ -27,6 +27,7 @@ router.put(
   "/:id",
   auth_controller.protect,
   middlewares.role_check,
+  middlewares.is_my_event,
   events_controller.update,
 );
 
