@@ -12,13 +12,9 @@ import { BASE_URL } from '../../../../config';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/use-toast';
-import { CheckCircledIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
 
 const formSchema = z.object({
-  // name: z.string().min(2, {
-  //   message: 'Name must be at least 2 characters.',
-  // }),
   email: z.string().email('Not a valid email'),
   password: z.string().min(6, {
     message: 'Password must at least be 8 characters long.',
@@ -34,8 +30,6 @@ export default function ProfileForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
     const url = `${BASE_URL}/auth/login`;
     try {
       const response = await axios({
@@ -57,8 +51,7 @@ export default function ProfileForm() {
       toast({
         variant: 'destructive',
         title: 'Uh oh! Something went wrong.',
-        // description: `${response.data.message}`,
-        description: `${error.response.data.message}`, //
+        description: `${error.response.data.message}`,
       });
     }
   }
