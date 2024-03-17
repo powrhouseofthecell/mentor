@@ -64,6 +64,7 @@ export default function ProfileForm() {
           onSubmit={form.handleSubmit(onSubmit)}
           className='px-16 py-24 border-solid border-2 border-gray-600 rounded-2xl space-y-8'>
           {/*  */}
+          <h1 className='text-4xl font-black'>Login</h1>
           <FormField
             control={form.control}
             name='email'
