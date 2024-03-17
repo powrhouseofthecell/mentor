@@ -23,7 +23,7 @@ export default function Date_Picker_With_Range({ className }: React.HTMLAttribut
           <Button
             id='date'
             variant={'outline'}
-            className={cn('w-[275px] justify-start text-left font-normal', !date && 'text-muted-foreground')}>
+            className={cn('w-[375px] justify-start text-left font-normal', !date && 'text-muted-foreground')}>
             <CalendarIcon className='mr-2 h-4 w-4' />
             {date?.from ? (
               date.to ? (

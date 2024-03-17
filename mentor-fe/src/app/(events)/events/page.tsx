@@ -22,7 +22,6 @@ async function get_events(url: any) {
 
 export default function CardDemo({ className, ...props }: CardProps) {
   const [events, set_events] = useState<any>([]);
-  const [attend_text, set_attended_text] = useState('');
 
   useEffect(() => {
     const url = `${BASE_URL}/events`;
@@ -55,7 +54,7 @@ export default function CardDemo({ className, ...props }: CardProps) {
                 <CardTitle className='flex justify-between'>
                   {event.event_name}
                   <span>
-                    <Edit_Event />
+                    <Edit_Event id={event._id} />
                   </span>
                 </CardTitle>
               </CardHeader>
