@@ -9,7 +9,7 @@ export function DialogDemo() {
     <Dialog>
       <DialogTrigger asChild>
         <Button variant='outline'>
-          <Button variant='outline'>
+          <Button variant='ghost'>
             <Pencil1Icon />
           </Button>
         </Button>
