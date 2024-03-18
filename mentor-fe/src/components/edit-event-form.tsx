@@ -12,6 +12,7 @@ import Date_Picker_With_Range from './date-picker-range';
 import { BASE_URL } from '../../config';
 import { useToast } from '@/components/ui/use-toast';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
   event_name: z.any(),
@@ -21,6 +22,7 @@ const formSchema = z.object({
 
 export default function Edit_Event_Form({ id }: any) {
   const { toast } = useToast();
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
@@ -48,7 +50,7 @@ export default function Edit_Event_Form({ id }: any) {
         description: `${error.response.data.message}`,
       });
     }
-    location.reload();
+    router.push('/events');
   }
   return (
     <Form {...form}>
