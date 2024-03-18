@@ -64,51 +64,55 @@ export default function Create_Event({ id }: any) {
   }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8 pt-8 w-3/6 mx-auto'>
-        <FormField
-          control={form.control}
-          name='event_name'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Event name</FormLabel>
-              <FormControl>
-                <Input placeholder='' {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        {/*  */}
-        <FormField
-          control={form.control}
-          name='event_description'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Event name</FormLabel>
-              <FormControl>
-                <Textarea placeholder='Type your description here' {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        {/*  */}
-        <FormField
-          control={form.control}
-          name='event_date'
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Event date</FormLabel>
-              <FormControl>
-                <Date_Picker_With_Range get_date={get_date} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+      <div className='pt-40'>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className='border-solid border-2 border-gray-600 rounded-2xl space-y-8 px-28 py-28 mx-auto w-3/6'>
+          <FormField
+            control={form.control}
+            name='event_name'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Event name</FormLabel>
+                <FormControl>
+                  <Input placeholder='' {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/*  */}
+          <FormField
+            control={form.control}
+            name='event_description'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Event name</FormLabel>
+                <FormControl>
+                  <Textarea placeholder='Type your description here' {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/*  */}
+          {/* <FormField
+            control={form.control}
+            name='event_date'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Event date</FormLabel>
+                <FormControl>
+                  <Date_Picker_With_Range get_date={get_date} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          /> */}
 
-        <Button type='submit'>Submit</Button>
-      </form>
+          <Button type='submit'>Create Event</Button>
+        </form>
+      </div>
     </Form>
   );
 }
