@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import axios from 'axios';
 import { BASE_URL } from '../../config';
-import { useToast } from '@/components/ui/use-toast';
+import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
 import { ModeToggle } from '@/components/theme-switch';
 import { HamburgerMenuIcon } from '@radix-ui/react-icons';
@@ -18,27 +18,22 @@ import Link from 'next/link';
 
 export function Dropdown_Menu() {
   const router = useRouter();
-  const { toast } = useToast();
 
   async function handle_logout() {
     const url = `${BASE_URL}/auth/logout`;
-    const response = await axios({
-      method: 'POST',
-      url,
-    });
-    if (!response.data.error) {
-      toast({
-        description: 'Logged out',
+    try {
+      const response = await axios({
+        method: 'POST',
+        url,
       });
-      localStorage.setItem('isLoggedIn', 'false');
-      localStorage.removeItem('user_id');
-      router.push('/login');
-    } else {
-      toast({
-        variant: 'destructive',
-        title: 'Uh oh! Something went wrong.',
-        description: `${response.data.message}`,
-      });
+      if (!response.data.error) {
+        toast.info('You are logged out!');
+        localStorage.setItem('isLoggedIn', 'false');
+        localStorage.removeItem('user_id');
+        router.push('/login');
+      }
+    } catch (error: any) {
+      toast.error(`${error.response.data.message}`);
     }
   }
 

@@ -10,9 +10,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import Date_Picker_With_Range from './date-picker-range';
 import { BASE_URL } from '../../config';
-import { useToast } from '@/components/ui/use-toast';
+import { toast } from 'sonner';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
   event_name: z.any(),
@@ -21,8 +20,6 @@ const formSchema = z.object({
 });
 
 export default function Edit_Event_Form({ id }: any) {
-  const { toast } = useToast();
-  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
@@ -39,16 +36,13 @@ export default function Edit_Event_Form({ id }: any) {
         withCredentials: true,
       });
       if (!response.data.error) {
-        toast({
-          description: 'event updated successfully',
-        });
+        // toast({
+        //   description: 'event updated successfully',
+        // });
+        toast.info('Event updated');
       }
     } catch (error: any) {
-      toast({
-        variant: 'destructive',
-        title: 'Uh oh! Something went wrong.',
-        description: `${error.response.data.message}`,
-      });
+      toast(`${error.response.data.message}`);
     }
     setTimeout(() => {
       location.reload();

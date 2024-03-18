@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input';
 import { BASE_URL } from '../../../../config';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useToast } from '@/components/ui/use-toast';
+import { toast } from 'sonner';
 import Link from 'next/link';
 
 const formSchema = z.object({
@@ -26,7 +26,6 @@ const formSchema = z.object({
 
 export default function ProfileForm() {
   const router = useRouter();
-  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -42,17 +41,11 @@ export default function ProfileForm() {
         withCredentials: true,
       });
       if (!response_signup.data.error) {
-        toast({
-          description: 'Signup successful',
-        });
+        toast.success('Account created');
         router.push('/login');
       }
     } catch (error: any) {
-      toast({
-        variant: 'destructive',
-        title: 'Uh oh! Something went wrong.',
-        description: `${error.response.data.message}`,
-      });
+      toast.error(`${error.response.data.message}`);
     }
   }
 
