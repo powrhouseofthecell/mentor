@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/theme-provider';
-import { DropdownMenuDemo } from '@/components/menu-dropdown';
+import { Dropdown_Menu } from '@/components/menu-dropdown';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
           <div className='py-2 absolute right-0'>
-            <DropdownMenuDemo />
+            <Dropdown_Menu />
           </div>
           {children}
         </ThemeProvider>
