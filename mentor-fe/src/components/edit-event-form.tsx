@@ -50,7 +50,10 @@ export default function Edit_Event_Form({ id }: any) {
         description: `${error.response.data.message}`,
       });
     }
-    router.push('/events');
+    setTimeout(() => {
+      location.reload();
+    }, 500);
+    // router.push('/events');
   }
   return (
     <Form {...form}>
