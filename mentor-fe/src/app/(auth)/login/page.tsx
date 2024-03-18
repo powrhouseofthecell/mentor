@@ -5,13 +5,13 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 
 import { BASE_URL } from '../../../../config';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useToast } from '@/components/ui/use-toast';
+import { toast } from 'sonner';
 import Link from 'next/link';
 
 const formSchema = z.object({
@@ -23,7 +23,6 @@ const formSchema = z.object({
 
 export default function ProfileForm() {
   const router = useRouter();
-  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -39,21 +38,14 @@ export default function ProfileForm() {
         withCredentials: true,
       });
       if (!response.data.error) {
-        toast({
-          description: 'Login Successful',
-        });
+        toast.success('Login successful');
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('user_id', response.data._id);
         localStorage.setItem('user_role', response.data.role);
         router.push('/events');
       }
     } catch (error: any) {
-      console.log(error);
-      toast({
-        variant: 'destructive',
-        title: 'Uh oh! Something went wrong.',
-        description: `${error.response.data.message}`,
-      });
+      toast.error(`${error.response.data.message}`);
     }
   }
 

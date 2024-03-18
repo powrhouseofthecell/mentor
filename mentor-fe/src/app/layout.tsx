@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import { Toaster } from '@/components/ui/toaster';
+import { Toaster } from 'sonner';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Dropdown_Menu } from '@/components/menu-dropdown';
 const inter = Inter({ subsets: ['latin'] });
@@ -26,7 +26,7 @@ export default function RootLayout({
           {children}
         </ThemeProvider>
 
-        <Toaster />
+        <Toaster richColors position='bottom-center' />
       </body>
     </html>
   );
