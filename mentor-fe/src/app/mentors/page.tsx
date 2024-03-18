@@ -132,7 +132,7 @@ export const columns: ColumnDef<Data>[] = [
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem onClick={() => navigator.clipboard.writeText(payment.id)}>View mentor</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Request mentor</DropdownMenuItem>
+            <DropdownMenuItem>Request mentorship</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
