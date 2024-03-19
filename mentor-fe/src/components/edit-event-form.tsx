@@ -36,9 +36,6 @@ export default function Edit_Event_Form({ id }: any) {
         withCredentials: true,
       });
       if (!response.data.error) {
-        // toast({
-        //   description: 'event updated successfully',
-        // });
         toast.info('Event updated');
       }
     } catch (error: any) {
@@ -47,7 +44,6 @@ export default function Edit_Event_Form({ id }: any) {
     setTimeout(() => {
       location.reload();
     }, 500);
-    // router.push('/events');
   }
   return (
     <Form {...form}>
@@ -80,7 +76,7 @@ export default function Edit_Event_Form({ id }: any) {
           )}
         />
         {/*  */}
-        <FormField
+        {/* <FormField
           control={form.control}
           name='event_date'
           render={({ field }) => (
@@ -92,7 +88,7 @@ export default function Edit_Event_Form({ id }: any) {
               <FormMessage />
             </FormItem>
           )}
-        />
+        /> */}
 
         <Button type='submit'>Submit</Button>
       </form>
