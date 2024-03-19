@@ -96,18 +96,10 @@ export default function DataTableDemo() {
     return mentors;
   }
 
-  function Open_Mentor_Profile() {
-    // console.log(id, 'this is the id');
-    // console.log(mentors_list[id]);
-    // return <Vaul_Scaled />;
-    // router.push('/mentors/view-profile');
-  }
-
   useEffect(() => {
     const url = `${BASE_URL}/mentors`;
     get_mentors(url).then((mentors) => {
       set_mentors_list(mentors.data);
-      console.log(mentors.data, 'mentors');
     });
   }, []);
 

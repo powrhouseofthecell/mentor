@@ -29,10 +29,8 @@ export default function Vaul_Scaled({ mentor_id }: any) {
       url,
       withCredentials: true,
     });
-    console.log(mentor.data.calendly_id);
     set_calendly_id(mentor.data.calendly_id);
     set_mentor_name(mentor.data.name);
-    console.log(calendly_id, mentor_name);
   }
   React.useEffect(() => {
     get_mentor();

@@ -2,7 +2,6 @@
 import axios from 'axios';
 import { BASE_URL } from '../../../../config';
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 import Resource_Card from '@/components/resource-card';
 // type Resource_Type = {
 //   name: string;
@@ -27,7 +26,6 @@ export default function All_Resources() {
     return resources;
   }
 
-  console.log(resources.data, 'this is the resource');
   return (
     <>
       <div className='pt-16'>
