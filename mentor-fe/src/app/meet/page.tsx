@@ -39,7 +39,7 @@ export default function Calendly_Link() {
       });
       if (!response.data.error) {
         toast.success('Link added!');
-        // router.push('/events');
+        router.push('/mentors');
       }
     } catch (error: any) {
       toast.error(`${error.response.data.message}`);
