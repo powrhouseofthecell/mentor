@@ -46,12 +46,9 @@ export default function CardDemo({ className, ...props }: CardProps) {
 
   return (
     <>
-      <div className='flex flex-wrap gap-10 justify-center pt-16'>
+      <h1 className='text-4xl pb-10 m-6 mt-0 font-black pt-16'>Events Section</h1>
+      <div className='flex flex-wrap gap-10 justify-center '>
         {events.map((event: any, idx: number) => {
-          {
-            console.log(event.organised_by._id, 'the event id');
-            console.log(localStorage.getItem('user_id'), 'the user id');
-          }
           return (
             <Card key={idx} className={cn('w-[380px]', className)} {...props}>
               <CardHeader>

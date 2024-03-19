@@ -3,6 +3,7 @@ import axios from 'axios';
 import { BASE_URL } from '../../../../config';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import Resource_Card from '@/components/resource-card';
 // type Resource_Type = {
 //   name: string;
 //   type: string;
@@ -29,16 +30,18 @@ export default function All_Resources() {
   console.log(resources.data, 'this is the resource');
   return (
     <>
-      {resources?.map((resource: any, idx: any) => {
-        return (
-          <>
-            <a target='__blank' key={idx} href={`http://127.0.0.1:8000/uploads/${resource.name}`}>
-              <Image width={100} height={100} alt='file icon' src='/file.svg' />
-              {resource.name}
-            </a>
-          </>
-        );
-      })}
+      <div className='pt-16'>
+        <h1 className='text-4xl pb-10 m-6 mt-0 font-black'>Resources Section</h1>
+        <div className='flex flex-wrap justify-center '>
+          {resources?.map((resource: any, idx: any) => {
+            return (
+              <>
+                <Resource_Card key={idx} resource_name={resource.name} />
+              </>
+            );
+          })}
+        </div>
+      </div>
     </>
   );
 }
