@@ -62,6 +62,9 @@ export function Dropdown_Menu() {
           <Link href='/mentors'>
             <DropdownMenuItem>Mentors</DropdownMenuItem>
           </Link>
+          <Link href='/meet'>
+            <DropdownMenuItem>Meet</DropdownMenuItem>
+          </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>Team</DropdownMenuItem>
