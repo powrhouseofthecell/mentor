@@ -70,7 +70,7 @@ export const columns: ColumnDef<Data>[] = [
   },
   {
     accessorKey: 'mentees',
-    header: () => <div className='text-right'>Number of Mentees</div>,
+    header: () => <div className='text-right'>Mentees assigned</div>,
     cell: ({ row }) => {
       const mentee = row.getValue<string[]>('mentees').length;
       return <div className='text-right font-medium'>{mentee}</div>;
