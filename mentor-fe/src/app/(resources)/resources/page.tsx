@@ -3,10 +3,7 @@ import axios from 'axios';
 import { BASE_URL } from '../../../../config';
 import { useEffect, useState } from 'react';
 import Resource_Card from '@/components/resource-card';
-// type Resource_Type = {
-//   name: string;
-//   type: string;
-// };
+
 export default function All_Resources() {
   const [resources, set_resources] = useState<any>([]);
   useEffect(() => {

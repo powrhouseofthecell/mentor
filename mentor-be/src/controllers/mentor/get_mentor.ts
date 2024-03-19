@@ -7,7 +7,6 @@ export default async function get_mentor(
   next: NextFunction,
 ) {
   const { id: mentor_id } = req.params;
-  console.log(mentor_id, "the id");
   try {
     const mentor = await User.findById(mentor_id);
     res.send(mentor);
