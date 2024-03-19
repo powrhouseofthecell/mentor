@@ -56,9 +56,11 @@ export default function Vaul_Scaled({ mentor_id }: any) {
             <DrawerDescription>You can have a 30 mins session with {mentor_name}</DrawerDescription>
           </DrawerHeader>
           <div className='mentor_details'>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam repellendus, nulla magnam placeat eaque, odit
-            iste vitae doloremque veritatis, nisi magni ut cupiditate eligendi blanditiis ratione commodi expedita sunt.
-            Nostrum.
+            <p className='text-sm text-amber-200'>
+              {mentor_name} is a full stack developer, having worked with MERN, Rust and GoLang. Connect with{' '}
+              {mentor_name} to get you CV checked and get insights about how you can land more interviews and get
+              interview prep.
+            </p>
           </div>
           {calendly_id ? (
             <div className='p-4 pb-0'>
@@ -69,7 +71,11 @@ export default function Vaul_Scaled({ mentor_id }: any) {
               </a>{' '}
             </div>
           ) : (
-            <h2>The mentor has not step up their calendly ID yet.</h2>
+            <div className='p-4 pb-0'>
+              <Button disabled className='w-full'>
+                Set up Meet
+              </Button>
+            </div>
           )}
           <DrawerFooter>
             <DrawerClose asChild>
