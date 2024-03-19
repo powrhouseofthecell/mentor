@@ -14,7 +14,6 @@ import {
 import { BASE_URL } from '../../config';
 import axios from 'axios';
 
-import { ExternalLink } from 'lucide-react';
 import { Hover_Card } from './hover-card';
 
 export default function Vaul_Scaled({ mentor_id }: any) {
@@ -43,7 +42,6 @@ export default function Vaul_Scaled({ mentor_id }: any) {
     <Drawer>
       <DrawerTrigger asChild>
         <Button className='mt-3 ml-12' variant='outline'>
-          {/* <ExternalLink strokeWidth={1.25} /> */}
           <Hover_Card name={mentor_name} />
         </Button>
       </DrawerTrigger>
