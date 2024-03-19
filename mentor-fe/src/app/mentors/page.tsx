@@ -16,78 +16,41 @@ import {
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
-// import { Checkbox } from '@/components/ui/checkbox';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-
-const data: Data[] = [
-  {
-    id: 'm5gr84i9',
-    mentees: 316,
-    name: 'Zumar',
-    email: 'zumar@yahoo.com',
-  },
-  {
-    id: 'm5gr84i9',
-    mentees: 316,
-    name: 'Zeeshan',
-    email: 'zeeshan@yahoo.com',
-  },
-  {
-    id: 'm5gr84i9',
-    mentees: 316,
-    name: 'Shuja',
-    email: 'shuja@yahoo.com',
-  },
-  {
-    id: 'm5gr84i9',
-    mentees: 316,
-    name: 'Azhar',
-    email: 'azhar@yahoo.com',
-  },
-  {
-    id: '3u1reuv4',
-    mentees: 242,
-    name: 'Faisal',
-    email: 'faisal@gmail.com',
-  },
-  {
-    id: 'derv1ws0',
-    mentees: 837,
-    name: 'Saheem',
-    email: 'saheem@gmail.com',
-  },
-  {
-    id: '5kma53ae',
-    mentees: 874,
-    name: 'Danish',
-    email: 'danish@gmail.com',
-  },
-  {
-    id: 'bhqecj4p',
-    mentees: 721,
-    name: 'Sahil',
-    email: 'sahil@hotmail.com',
-  },
-];
+import { useEffect } from 'react';
+import { BASE_URL } from '../../../config';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import Vaul_Scaled from '@/components/vaul-scaled';
 
 export type Data = {
+  _id: string;
   id: string;
-  mentees: number;
+  mentees: number[];
   name: string;
   email: string;
 };
 
 export const columns: ColumnDef<Data>[] = [
+  {
+    accessorKey: 'avatar',
+    header: '',
+    cell: ({ row }) => (
+      <div>
+        <Avatar>
+          <AvatarFallback>{row.getValue<string>('name').split('')[0]}</AvatarFallback>
+        </Avatar>
+      </div>
+    ),
+  },
   {
     accessorKey: 'name',
     header: 'Name',
@@ -107,35 +70,10 @@ export const columns: ColumnDef<Data>[] = [
   },
   {
     accessorKey: 'mentees',
-    header: () => <div className='text-right'>Mentees</div>,
+    header: () => <div className='text-right'>Number of Mentees</div>,
     cell: ({ row }) => {
-      const mentee = parseFloat(row.getValue('mentees'));
-
+      const mentee = row.getValue<string[]>('mentees').length;
       return <div className='text-right font-medium'>{mentee}</div>;
-    },
-  },
-  {
-    id: 'actions',
-    enableHiding: false,
-    cell: ({ row }) => {
-      const payment = row.original;
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant='ghost' className='h-8 w-8 p-0'>
-              <span className='sr-only'>Open menu</span>
-              <MoreHorizontal className='h-4 w-4' />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align='end'>
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => navigator.clipboard.writeText(payment.id)}>View mentor</DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Request mentorship</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
     },
   },
 ];
@@ -146,8 +84,35 @@ export default function DataTableDemo() {
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
 
+  const [mentors_list, set_mentors_list] = React.useState<any>([]);
+  const router = useRouter();
+
+  async function get_mentors(url: string) {
+    const mentors = await axios({
+      method: 'GET',
+      url,
+      withCredentials: true,
+    });
+    return mentors;
+  }
+
+  function Open_Mentor_Profile() {
+    // console.log(id, 'this is the id');
+    // console.log(mentors_list[id]);
+    // return <Vaul_Scaled />;
+    // router.push('/mentors/view-profile');
+  }
+
+  useEffect(() => {
+    const url = `${BASE_URL}/mentors`;
+    get_mentors(url).then((mentors) => {
+      set_mentors_list(mentors.data);
+      console.log(mentors.data, 'mentors');
+    });
+  }, []);
+
   const table = useReactTable({
-    data,
+    data: mentors_list,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -216,11 +181,15 @@ export default function DataTableDemo() {
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-                  ))}
-                </TableRow>
+                <>
+                  <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
+                    ))}
+
+                    <Vaul_Scaled mentor_id={row.original._id} />
+                  </TableRow>
+                </>
               ))
             ) : (
               <TableRow>

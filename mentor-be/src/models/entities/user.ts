@@ -18,11 +18,14 @@ const user_schema = new Schema({
     enum: ["mentor", "mentee", "admin"],
     default: "mentee",
   },
-  followers: {
+  calendly_id: {
+    type: String,
+  },
+  mentees: {
     type: Array,
     default: [],
   },
-  following: {
+  mentors: {
     type: Array,
     default: [],
   },
