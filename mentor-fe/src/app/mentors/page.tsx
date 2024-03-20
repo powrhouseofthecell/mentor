@@ -13,7 +13,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from 'lucide-react';
+import { ArrowUpDown, ChevronDown, Cog, MoreHorizontal } from 'lucide-react';
+import Link from 'next/link';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -125,6 +126,15 @@ export default function DataTableDemo() {
   return (
     <>
       <h1 className='text-4xl m-6 mt-0 font-black pt-16'>Mentors</h1>
+      {localStorage.getItem('user_role') === 'mentor' ? (
+        <Link href={'/mentors/meet'}>
+          <Button className='bg-amber-200 fixed right-0 m-6 bottom-0'>
+            <Cog size={16} /> &nbsp; Update your ID
+          </Button>
+        </Link>
+      ) : (
+        ''
+      )}
       <div className='w-[1000px] pt-12 mx-auto'>
         <div className='flex items-center py-4'>
           <Input

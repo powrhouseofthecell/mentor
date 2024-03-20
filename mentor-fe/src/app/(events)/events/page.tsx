@@ -1,6 +1,6 @@
 'use client';
 
-import { BellIcon, CheckIcon, Pencil1Icon } from '@radix-ui/react-icons';
+import { BellIcon, CheckIcon, EnvelopeOpenIcon, Pencil1Icon } from '@radix-ui/react-icons';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,6 +8,9 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { BASE_URL } from '../../../../config';
 import Edit_Event from '@/components/edit-event';
+import { CalendarRange } from 'lucide-react';
+import Delete_Event from '@/components/delete-event';
+import Create_Event from '@/components/create-event';
 
 type CardProps = React.ComponentProps<typeof Card>;
 
@@ -47,6 +50,7 @@ export default function CardDemo({ className, ...props }: CardProps) {
   return (
     <>
       <h1 className='text-4xl pb-10 m-6 mt-0 font-black pt-16'>Events Section</h1>
+      {localStorage.getItem('user_role') === 'mentor' ? <Create_Event /> : ''}
       <div className='flex flex-wrap gap-10 justify-center '>
         {events.map((event: any, idx: number) => {
           return (
@@ -56,6 +60,8 @@ export default function CardDemo({ className, ...props }: CardProps) {
                   {event.event_name}
                   <span>
                     {localStorage.getItem('user_id') === event.organised_by._id ? <Edit_Event id={event._id} /> : ''}
+                    <span className='m-3'></span>
+                    {localStorage.getItem('user_id') === event.organised_by._id ? <Delete_Event id={event._id} /> : ''}
                   </span>
                 </CardTitle>
               </CardHeader>

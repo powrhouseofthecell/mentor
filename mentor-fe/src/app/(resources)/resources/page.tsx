@@ -3,6 +3,10 @@ import axios from 'axios';
 import { BASE_URL } from '../../../../config';
 import { useEffect, useState } from 'react';
 import Resource_Card from '@/components/resource-card';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Cog, Upload } from 'lucide-react';
+import Upload_Resources from '@/components/upload-resources';
 
 export default function All_Resources() {
   const [resources, set_resources] = useState<any>([]);
@@ -27,6 +31,7 @@ export default function All_Resources() {
     <>
       <div className='pt-16'>
         <h1 className='text-4xl pb-10 m-6 mt-0 font-black'>Resources Section</h1>
+        {localStorage.getItem('user_role') === 'mentor' ? <Upload_Resources /> : ''}
         <div className='flex flex-wrap justify-center '>
           {resources?.map((resource: any, idx: any) => {
             return (

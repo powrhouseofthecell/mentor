@@ -1,14 +1,15 @@
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Settings2 } from 'lucide-react';
-import Edit_Event_Form from './edit-event-form';
+import { CalendarRange, Settings2 } from 'lucide-react';
+import Create_Event_Form from './create-event-form';
 
-export default function Edit_Event({ id }: any) {
+export default function Create_Event() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant='outline'>
-          <Settings2 size={16} />
+        <Button className='bg-amber-200 fixed right-0 m-6 bottom-0'>
+          <CalendarRange className='mr-2 h-4 w-4' size={16} />
+          Create Event
         </Button>
       </DialogTrigger>
       <DialogContent className='sm:max-w-[425px]'>
@@ -16,8 +17,8 @@ export default function Edit_Event({ id }: any) {
           <DialogTitle>Edit event</DialogTitle>
         </DialogHeader>
 
-        <div className='grid gap-4 py-4'>
-          <Edit_Event_Form id={id} />
+        <div className=''>
+          <Create_Event_Form />
         </div>
       </DialogContent>
     </Dialog>
