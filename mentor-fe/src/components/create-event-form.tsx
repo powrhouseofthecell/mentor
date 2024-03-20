@@ -19,24 +19,25 @@ const formSchema = z.object({
   event_date: z.any(),
 });
 
-export default function Edit_Event_Form({ id }: any) {
+export default function Create_Event_Form() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const url = `${BASE_URL}/events/${id}`;
+    const url = `${BASE_URL}/events/create`;
 
     const { event_description, event_name } = values;
+    const event_date = '12-07-2024';
     try {
       const response = await axios({
-        method: 'PUT',
+        method: 'POST',
         url,
-        data: { event_description, event_name },
+        data: { event_description, event_name, event_date },
         withCredentials: true,
       });
       if (!response.data.error) {
-        toast.info('Event updated');
+        toast.success('Event create');
       }
     } catch (error: any) {
       toast.error(`${error.response.data.message}`);

@@ -53,17 +53,11 @@ export function Dropdown_Menu() {
           <Link href='/resources'>
             <DropdownMenuItem>Resources</DropdownMenuItem>
           </Link>
-          <Link href='/events/create'>
-            <DropdownMenuItem>Create Event</DropdownMenuItem>
-          </Link>
           <Link href='/events'>
             <DropdownMenuItem>Events</DropdownMenuItem>
           </Link>
           <Link href='/mentors'>
             <DropdownMenuItem>Mentors</DropdownMenuItem>
-          </Link>
-          <Link href='/meet'>
-            <DropdownMenuItem>Meet</DropdownMenuItem>
           </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
