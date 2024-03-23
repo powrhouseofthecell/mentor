@@ -39,9 +39,9 @@ export default function ProfileForm() {
       });
       if (!response.data.error) {
         toast.success('Login successful');
-        localStorage.setItem('isLoggedIn', 'true');
-        localStorage.setItem('user_id', response.data._id);
-        localStorage.setItem('user_role', response.data.role);
+        localStorage?.setItem('isLoggedIn', 'true');
+        localStorage?.setItem('user_id', response.data._id);
+        localStorage?.setItem('user_role', response.data.role);
         router.push('/events');
       }
     } catch (error: any) {

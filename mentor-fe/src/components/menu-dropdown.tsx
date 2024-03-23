@@ -28,8 +28,8 @@ export function Dropdown_Menu() {
       });
       if (!response.data.error) {
         toast.info('You are logged out!');
-        localStorage.setItem('isLoggedIn', 'false');
-        localStorage.removeItem('user_id');
+        localStorage?.setItem('isLoggedIn', 'false');
+        localStorage?.removeItem('user_id');
         router.push('/login');
       }
     } catch (error: any) {

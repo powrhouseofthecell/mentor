@@ -55,7 +55,7 @@ export default function CardDemo({ className, ...props }: CardProps) {
   return (
     <>
       <h1 className='text-4xl pb-10 m-6 mt-0 font-black pt-16'>Events Section</h1>
-      {localStorage.getItem('user_role') === 'mentor' ? <Create_Event /> : ''}
+      {localStorage?.getItem('user_role') === 'mentor' ? <Create_Event /> : ''}
       <div className='flex flex-wrap gap-10 justify-center '>
         {events?.map((event: any, idx: number) => {
           return (
@@ -64,9 +64,9 @@ export default function CardDemo({ className, ...props }: CardProps) {
                 <CardTitle className='flex justify-between'>
                   {event.event_name}
                   <span>
-                    {localStorage.getItem('user_id') === event.organised_by._id ? <Edit_Event id={event._id} /> : ''}
+                    {localStorage?.getItem('user_id') === event.organised_by._id ? <Edit_Event id={event._id} /> : ''}
                     <span className='m-3'></span>
-                    {localStorage.getItem('user_id') === event.organised_by._id ? <Delete_Event id={event._id} /> : ''}
+                    {localStorage?.getItem('user_id') === event.organised_by._id ? <Delete_Event id={event._id} /> : ''}
                   </span>
                 </CardTitle>
               </CardHeader>
