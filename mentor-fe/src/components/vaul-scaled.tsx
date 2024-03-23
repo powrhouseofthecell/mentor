@@ -15,6 +15,7 @@ import { BASE_URL } from '../../config';
 import axios from 'axios';
 
 import { Hover_Card } from './hover-card';
+import { toast } from 'sonner';
 
 export default function Vaul_Scaled({ mentor_id }: any) {
   const [goal, setGoal] = React.useState(350);
@@ -23,13 +24,17 @@ export default function Vaul_Scaled({ mentor_id }: any) {
 
   const url = `${BASE_URL}/mentors/${mentor_id}`;
   async function get_mentor() {
-    const mentor = await axios({
-      method: 'GET',
-      url,
-      withCredentials: true,
-    });
-    set_calendly_id(mentor.data.calendly_id);
-    set_mentor_name(mentor.data.name);
+    try {
+      const mentor = await axios({
+        method: 'GET',
+        url,
+        withCredentials: true,
+      });
+      set_calendly_id(mentor.data.calendly_id);
+      set_mentor_name(mentor.data.name);
+    } catch (error: any) {
+      toast.error(`${error.response.data.message}`);
+    }
   }
   React.useEffect(() => {
     get_mentor();

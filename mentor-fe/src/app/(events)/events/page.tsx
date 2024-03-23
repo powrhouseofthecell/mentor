@@ -11,16 +11,21 @@ import Edit_Event from '@/components/edit-event';
 import { CalendarRange } from 'lucide-react';
 import Delete_Event from '@/components/delete-event';
 import Create_Event from '@/components/create-event';
+import { toast } from 'sonner';
 
 type CardProps = React.ComponentProps<typeof Card>;
 
 async function get_events(url: any) {
-  const events = await axios({
-    method: 'GET',
-    url,
-    withCredentials: true,
-  });
-  return events;
+  try {
+    const events = await axios({
+      method: 'GET',
+      url,
+      withCredentials: true,
+    });
+    return events;
+  } catch (error: any) {
+    toast.error(`${error.response.data.message}`);
+  }
 }
 
 export default function CardDemo({ className, ...props }: CardProps) {
@@ -29,7 +34,7 @@ export default function CardDemo({ className, ...props }: CardProps) {
   useEffect(() => {
     const url = `${BASE_URL}/events`;
     get_events(url).then((events) => {
-      set_events(events.data.data);
+      set_events(events?.data.data);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -43,7 +48,7 @@ export default function CardDemo({ className, ...props }: CardProps) {
     });
     const get_event_url = `${BASE_URL}/events`;
     get_events(get_event_url).then((events) => {
-      set_events(events.data.data);
+      set_events(events?.data.data);
     });
   }
 
@@ -52,7 +57,7 @@ export default function CardDemo({ className, ...props }: CardProps) {
       <h1 className='text-4xl pb-10 m-6 mt-0 font-black pt-16'>Events Section</h1>
       {localStorage.getItem('user_role') === 'mentor' ? <Create_Event /> : ''}
       <div className='flex flex-wrap gap-10 justify-center '>
-        {events.map((event: any, idx: number) => {
+        {events?.map((event: any, idx: number) => {
           return (
             <Card key={idx} className={cn('w-[380px]', className)} {...props}>
               <CardHeader>

@@ -31,6 +31,7 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Vaul_Scaled from '@/components/vaul-scaled';
+import { toast } from 'sonner';
 
 export type Data = {
   _id: string;
@@ -89,18 +90,22 @@ export default function DataTableDemo() {
   const router = useRouter();
 
   async function get_mentors(url: string) {
-    const mentors = await axios({
-      method: 'GET',
-      url,
-      withCredentials: true,
-    });
-    return mentors;
+    try {
+      const mentors = await axios({
+        method: 'GET',
+        url,
+        withCredentials: true,
+      });
+      return mentors;
+    } catch (error: any) {
+      toast.error(`${error.response.data.message}`);
+    }
   }
 
   useEffect(() => {
     const url = `${BASE_URL}/mentors`;
     get_mentors(url).then((mentors) => {
-      set_mentors_list(mentors.data);
+      set_mentors_list(mentors?.data);
     });
   }, []);
 
