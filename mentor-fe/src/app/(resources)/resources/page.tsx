@@ -36,7 +36,11 @@ export default function All_Resources() {
     <>
       <div className='pt-16'>
         <h1 className='text-4xl pb-10 m-6 mt-0 font-black'>Resources Section</h1>
-        {localStorage.getItem('user_role') === 'mentor' ? <Upload_Resources /> : ''}
+        {localStorage.getItem('user_role') === 'mentor' ? (
+          <Upload_Resources get_resources={get_resources} set_resources={set_resources} />
+        ) : (
+          ''
+        )}
         <div className='flex flex-wrap justify-center '>
           {resources?.map((resource: any, idx: any) => {
             return (
