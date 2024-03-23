@@ -7,24 +7,29 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Cog, Upload } from 'lucide-react';
 import Upload_Resources from '@/components/upload-resources';
+import { toast } from 'sonner';
 
 export default function All_Resources() {
   const [resources, set_resources] = useState<any>([]);
   useEffect(() => {
     const url = `${BASE_URL}/resources`;
     get_resources(url).then((resources) => {
-      set_resources(resources.data);
+      set_resources(resources?.data);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function get_resources(url: string) {
-    const resources = await axios({
-      method: 'GET',
-      url,
-      withCredentials: true,
-    });
-    return resources;
+    try {
+      const resources = await axios({
+        method: 'GET',
+        url,
+        withCredentials: true,
+      });
+      return resources;
+    } catch (error: any) {
+      toast.error(`${error.response.data.message}`);
+    }
   }
 
   return (

@@ -3,16 +3,22 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import axios from 'axios';
 import { Upload } from 'lucide-react';
 import { BASE_URL } from '../../config';
+import { toast } from 'sonner';
 
 export default function Upload_Resources() {
   const handle_file_selected = async (e: React.ChangeEvent<HTMLInputElement>): Promise<any> => {
     const files = Array.from(e.target.files!);
     const url = `${BASE_URL}/resources/upload/`;
-    // const r = await axios({
-    //   method: 'POST',
-    //   url,
-    //   data: files[0],
-    // });
+    try {
+      const response = await axios({
+        method: 'POST',
+        url,
+        data: files[0],
+        withCredentials: true,
+      });
+    } catch (error: any) {
+      toast.error(`${error.response.data.message}`);
+    }
     console.log(files[0]);
   };
   return (
