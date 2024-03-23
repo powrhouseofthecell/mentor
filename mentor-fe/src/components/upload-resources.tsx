@@ -4,14 +4,21 @@ import axios from 'axios';
 import { Upload } from 'lucide-react';
 import { BASE_URL } from '../../config';
 import { toast } from 'sonner';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { useState } from 'react';
 
 export default function Upload_Resources({ get_resources, set_resources }: any) {
-  const handle_file_selected = async (e: React.ChangeEvent<HTMLInputElement>): Promise<any> => {
+  const [file, set_file] = useState<any>();
+  const set_file_for_upload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files!);
+    set_file(files[0]);
+  };
+  const handle_file_selected = async (e: any): Promise<any> => {
     const url = `${BASE_URL}/resources/upload/`;
     try {
       const formData = new FormData();
-      formData.append('file', files[0]);
+      formData.append('file', file);
       const response = await axios({
         method: 'POST',
         url,
@@ -40,8 +47,12 @@ export default function Upload_Resources({ get_resources, set_resources }: any) 
           <DialogTitle>Upload Resource</DialogTitle>
         </DialogHeader>
 
-        <div className=''>
-          <input onChange={handle_file_selected} type='file' name='' id='' />
+        <div className='grid w-full max-w-sm items-center gap-1.5'>
+          <Label className='' htmlFor='resource'>
+            Picture
+          </Label>
+          <Input onChange={set_file_for_upload} id='resource' type='file' />
+          <Button onClick={handle_file_selected}>Upload</Button>
         </div>
       </DialogContent>
     </Dialog>
