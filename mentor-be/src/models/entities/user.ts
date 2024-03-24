@@ -22,10 +22,16 @@ const user_schema = new Schema({
     type: String,
   },
   mentees: {
+    // Mentees that are following a mentor
     type: Array,
     default: [],
   },
   mentors: {
+    // Mentors that a mentee follows
+    type: Array,
+    default: [],
+  },
+  connect_request: {
     type: Array,
     default: [],
   },

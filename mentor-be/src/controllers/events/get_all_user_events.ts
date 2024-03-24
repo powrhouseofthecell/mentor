@@ -7,9 +7,13 @@ import { Custom_Req } from "src/types/custom_params";
 export default async function get_all_user_events(
   req: Custom_Req,
   res: Response,
-  _next: NextFunction,
+  next: NextFunction,
 ) {
   const user_id = req.user._id;
-  const events_by_user = await Events.find({ organised_by: user_id });
-  res.send(events_by_user);
+  try {
+    const events_by_user = await Events.find({ organised_by: user_id });
+    res.send(events_by_user);
+  } catch (error) {
+    next(error);
+  }
 }
