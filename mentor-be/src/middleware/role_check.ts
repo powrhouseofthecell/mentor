@@ -8,7 +8,6 @@ export default function role_check(
   next: NextFunction,
 ) {
   try {
-    console.log(req.user);
     if (req.user.role === "admin" || req.user.role === "mentor") {
       next();
     } else {
