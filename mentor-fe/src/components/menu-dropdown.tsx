@@ -45,9 +45,15 @@ export function Dropdown_Menu() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className='w-56'>
-        <span>
+        <div>
           <ModeToggle />
-        </span>
+        </div>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          <Link href='/me'>
+            <DropdownMenuItem>My Profile</DropdownMenuItem>
+          </Link>
+        </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <Link href='/resources'>
