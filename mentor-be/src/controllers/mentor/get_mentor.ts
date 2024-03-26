@@ -8,7 +8,9 @@ export default async function get_mentor(
 ) {
   const { id: mentor_id } = req.params;
   try {
-    const mentor = await User.findById(mentor_id);
+    const mentor = await User.find({ _id: mentor_id })
+      .populate("mentees")
+      .populate("connect_request");
     res.send(mentor);
   } catch (error) {
     next(error);
