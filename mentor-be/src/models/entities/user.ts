@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import bcrypt from "bcrypt";
+import mongoose from "mongoose";
 
 // TODO: Write a validator for email.
 
@@ -23,16 +24,19 @@ const user_schema = new Schema({
   },
   mentees: {
     // Mentees that are following a mentor
-    type: Array,
+    type: [mongoose.Types.ObjectId],
+    ref: "User",
     default: [],
   },
   mentors: {
     // Mentors that a mentee follows
-    type: Array,
+    type: [mongoose.Types.ObjectId],
+    ref: "User",
     default: [],
   },
   connect_request: {
-    type: Array,
+    type: [mongoose.Types.ObjectId],
+    ref: "User",
     default: [],
   },
 });
