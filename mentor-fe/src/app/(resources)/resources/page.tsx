@@ -41,19 +41,15 @@ export default function All_Resources() {
         ) : (
           ''
         )}
-        {resources.length > 0 ? (
-          <div className='flex flex-wrap justify-center '>
-            {resources?.map((resource: any, idx: any) => {
-              return (
-                <>
-                  <Resource_Card key={idx} resource_name={resource.name} />
-                </>
-              );
-            })}
-          </div>
-        ) : (
-          <h3 className='text-2xl flex justify-center items-center text-gray-400'>No resources available.</h3>
-        )}
+        <div className='flex flex-wrap justify-center '>
+          {resources?.map((resource: any, idx: any) => {
+            return (
+              <>
+                <Resource_Card key={idx} resource_name={resource.name} />
+              </>
+            );
+          })}
+        </div>
       </div>
     </>
   );
