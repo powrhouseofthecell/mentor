@@ -56,63 +56,55 @@ export default function CardDemo({ className, ...props }: CardProps) {
     <>
       <h1 className='text-4xl pb-10 m-6 mt-0 font-black pt-16'>Events Section</h1>
       {localStorage?.getItem('user_role') === 'mentor' ? <Create_Event /> : ''}
-      {events.length > 0 ? (
-        <div className='flex flex-wrap gap-10 justify-center '>
-          {events?.map((event: any, idx: number) => {
-            return (
-              <Card key={idx} className={cn('w-[380px]', className)} {...props}>
-                <CardHeader>
-                  <CardTitle className='flex justify-between'>
-                    {event.event_name}
-                    <span>
-                      {localStorage?.getItem('user_id') === event.organised_by._id ? <Edit_Event id={event._id} /> : ''}
-                      <span className='m-3'></span>
-                      {localStorage?.getItem('user_id') === event.organised_by._id ? (
-                        <Delete_Event id={event._id} />
-                      ) : (
-                        ''
-                      )}
-                    </span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className='grid gap-4'>
-                  <div className=' flex items-center space-x-4 rounded-md border p-4'>
-                    <BellIcon />
-                    <div className='flex-1 space-y-1'>
-                      <p className='text-sm font-medium leading-none'>Organised By:</p>
-                      <p className='text-sm text-muted-foreground'> {event.organised_by.name}</p>
-                      <p className='text-sm text-muted-foreground text-stone-300'>{event.event_date}</p>
+      <div className='flex flex-wrap gap-10 justify-center '>
+        {events?.map((event: any, idx: number) => {
+          return (
+            <Card key={idx} className={cn('w-[380px]', className)} {...props}>
+              <CardHeader>
+                <CardTitle className='flex justify-between'>
+                  {event.event_name}
+                  <span>
+                    {localStorage?.getItem('user_id') === event.organised_by._id ? <Edit_Event id={event._id} /> : ''}
+                    <span className='m-3'></span>
+                    {localStorage?.getItem('user_id') === event.organised_by._id ? <Delete_Event id={event._id} /> : ''}
+                  </span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className='grid gap-4'>
+                <div className=' flex items-center space-x-4 rounded-md border p-4'>
+                  <BellIcon />
+                  <div className='flex-1 space-y-1'>
+                    <p className='text-sm font-medium leading-none'>Organised By:</p>
+                    <p className='text-sm text-muted-foreground'> {event.organised_by.name}</p>
+                    <p className='text-sm text-muted-foreground text-stone-300'>{event.event_date}</p>
+                  </div>
+                </div>
+                <div>
+                  <div className='mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0'>
+                    <span className='flex h-2 w-2 translate-y-1 rounded-full bg-sky-500' />
+                    <div className='space-y-1'>
+                      <p className='text-sm text-muted-foreground'>{event.event_description}</p>
                     </div>
                   </div>
-                  <div>
-                    <div className='mb-4 grid grid-cols-[25px_1fr] items-start pb-4 last:mb-0 last:pb-0'>
-                      <span className='flex h-2 w-2 translate-y-1 rounded-full bg-sky-500' />
-                      <div className='space-y-1'>
-                        <p className='text-sm text-muted-foreground'>{event.event_description}</p>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-                <CardFooter>
-                  <Button onClick={() => handle_event_attendece(event._id)} className='w-full'>
-                    {event.attended_by.includes(localStorage.getItem('user_id')) ? (
-                      <>
-                        <CheckIcon className='mr-2 h-4 w-4' /> Your seat is reserved.
-                      </>
-                    ) : (
-                      <>
-                        <CheckIcon className='mr-2 h-4 w-4' /> Click to attend the event.
-                      </>
-                    )}
-                  </Button>
-                </CardFooter>
-              </Card>
-            );
-          })}
-        </div>
-      ) : (
-        <h3 className='text-2xl flex justify-center items-center text-gray-400'>No events created yet.</h3>
-      )}
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button onClick={() => handle_event_attendece(event._id)} className='w-full'>
+                  {event.attended_by.includes(localStorage.getItem('user_id')) ? (
+                    <>
+                      <CheckIcon className='mr-2 h-4 w-4' /> Your seat is reserved.
+                    </>
+                  ) : (
+                    <>
+                      <CheckIcon className='mr-2 h-4 w-4' /> Click to attend the event.
+                    </>
+                  )}
+                </Button>
+              </CardFooter>
+            </Card>
+          );
+        })}
+      </div>
     </>
   );
 }
