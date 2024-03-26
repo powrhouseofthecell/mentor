@@ -1,93 +1,20 @@
 'use client';
+import axios from 'axios';
+import { toast } from 'sonner';
+import { BASE_URL } from '../../../config';
+import { useState, useEffect } from 'react';
+import { Cog, HandHelping, Loader, Send, UserRoundPlus } from 'lucide-react';
 
-import * as React from 'react';
-import {
-  ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
-  flexRender,
-  getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from '@tanstack/react-table';
-import { ArrowUpDown, ChevronDown, Cog, MoreHorizontal } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import Vaul_Scaled from '@/components/vaul-scaled';
 import Link from 'next/link';
 
-import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Input } from '@/components/ui/input';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { useEffect } from 'react';
-import { BASE_URL } from '../../../config';
-import axios from 'axios';
-import { useRouter } from 'next/navigation';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import Vaul_Scaled from '@/components/vaul-scaled';
-import { toast } from 'sonner';
-
-export type Data = {
-  _id: string;
-  id: string;
-  mentees: number[];
-  name: string;
-  email: string;
-};
-
-export const columns: ColumnDef<Data>[] = [
-  {
-    accessorKey: 'avatar',
-    header: '',
-    cell: ({ row }) => (
-      <div>
-        <Avatar>
-          <AvatarFallback>{row.getValue<string>('name').split('')[0]}</AvatarFallback>
-        </Avatar>
-      </div>
-    ),
-  },
-  {
-    accessorKey: 'name',
-    header: 'Name',
-    cell: ({ row }) => <div className='capitalize'>{row.getValue('name')}</div>,
-  },
-  {
-    accessorKey: 'email',
-    header: ({ column }) => {
-      return (
-        <Button variant='ghost' onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}>
-          Email
-          <ArrowUpDown className='ml-2 h-4 w-4' />
-        </Button>
-      );
-    },
-    cell: ({ row }) => <div className='lowercase'>{row.getValue('email')}</div>,
-  },
-  {
-    accessorKey: 'mentees',
-    header: () => <div className='text-right'>Mentees assigned</div>,
-    cell: ({ row }) => {
-      const mentee = row.getValue<string[]>('mentees').length;
-      return <div className='text-right font-medium'>{mentee}</div>;
-    },
-  },
-];
-
-export default function DataTableDemo() {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
-
-  const [mentors_list, set_mentors_list] = React.useState<any>([]);
-  const router = useRouter();
+type CardProps = React.ComponentProps<typeof Card>;
+export default function Mentors({ className, ...props }: CardProps) {
+  const [mentors_list, set_mentors_list] = useState<any>([]);
 
   async function get_mentors(url: string) {
     try {
@@ -109,28 +36,27 @@ export default function DataTableDemo() {
     });
   }, []);
 
-  const table = useReactTable({
-    data: mentors_list,
-    columns,
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
-    state: {
-      sorting,
-      columnFilters,
-      columnVisibility,
-      rowSelection,
-    },
-  });
+  async function send_connect_req(id: any) {
+    const url_req = `${BASE_URL}/mentors/follow/${id}`;
+    const url_get = `${BASE_URL}/mentors`;
+    try {
+      await axios({
+        method: 'POST',
+        url: url_req,
+        withCredentials: true,
+      });
+      toast.info('Request sent!');
+    } catch (error: any) {
+      toast.error(`${error.response.data.message}`);
+    }
+    get_mentors(url_get).then((mentors) => {
+      set_mentors_list(mentors?.data);
+    });
+  }
 
   return (
     <>
-      <h1 className='text-4xl m-6 mt-0 font-black pt-16'>Mentors</h1>
+      <h1 className='text-4xl pb-10 m-6 mt-0 font-black pt-16'>Mentors</h1>
       {localStorage?.getItem('user_role') === 'mentor' ? (
         <Link href={'/mentors/meet'}>
           <Button className='bg-amber-200 fixed right-0 m-6 bottom-0'>
@@ -140,94 +66,65 @@ export default function DataTableDemo() {
       ) : (
         ''
       )}
-      <div className='w-[1000px] pt-12 mx-auto'>
-        <div className='flex items-center py-4'>
-          <Input
-            placeholder='Filter emails...'
-            value={(table.getColumn('email')?.getFilterValue() as string) ?? ''}
-            onChange={(event) => table.getColumn('email')?.setFilterValue(event.target.value)}
-            className='max-w-sm'
-          />
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant='outline' className='ml-auto'>
-                Columns <ChevronDown className='ml-2 h-4 w-4' />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align='end'>
-              {table
-                .getAllColumns()
-                .filter((column) => column.getCanHide())
-                .map((column) => {
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={column.id}
-                      className='capitalize'
-                      checked={column.getIsVisible()}
-                      onCheckedChange={(value) => column.toggleVisibility(!!value)}>
-                      {column.id}
-                    </DropdownMenuCheckboxItem>
-                  );
-                })}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-        <div className='rounded-md border'>
-          <Table>
-            <TableHeader>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => {
-                    return (
-                      <TableHead key={header.id}>
-                        {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                      </TableHead>
-                    );
-                  })}
-                </TableRow>
-              ))}
-            </TableHeader>
-            <TableBody>
-              {table.getRowModel().rows?.length ? (
-                table.getRowModel().rows.map((row) => (
-                  <>
-                    <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                      {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-                      ))}
-
-                      <Vaul_Scaled mentor_id={row.original._id} />
-                    </TableRow>
-                  </>
-                ))
+      <div className='flex flex-wrap justify-center items-center gap-10'>
+        {mentors_list.map((mentor: any, idx: any) => {
+          return (
+            <>
+              {mentor._id === localStorage.getItem('user_id') ? (
+                ''
               ) : (
-                <TableRow>
-                  <TableCell colSpan={columns.length} className='h-24 text-center'>
-                    No results.
-                  </TableCell>
-                </TableRow>
+                <Card key={idx} className={cn('w-[380px]', className)} {...props}>
+                  <CardHeader>
+                    <div className='flex items-center'>
+                      <Avatar>
+                        <AvatarFallback>{mentor.name.split('')[0]}</AvatarFallback>
+                      </Avatar>
+                      <CardTitle className='ml-3'>{mentor.name}</CardTitle>
+                    </div>
+                    <CardDescription>Full Stack Developer</CardDescription>
+                  </CardHeader>
+                  <CardContent className='grid gap-4'>
+                    <div className='flex items-center space-x-4 rounded-md border p-4'>
+                      <HandHelping />
+                      <div className='flex-1 space-y-1'>
+                        <p className='text-sm font-medium leading-none'>Mentoring</p>
+                        <p className='text-sm text-muted-foreground'>{mentor.mentees.length} Mentee/s</p>
+                      </div>
+                    </div>
+                    <div>
+                      <div className='flex items-center space-x-4 rounded-md'>
+                        <Send />
+                        <div className='flex-1 space-y-1'>
+                          <p className='text-sm font-medium leading-none'>Email</p>
+                          <p className='text-sm text-muted-foreground'>{mentor.email}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    {mentor.connect_request.includes(localStorage.getItem('user_id')) ? (
+                      <Button className='w-full' variant={'outline'}>
+                        <Loader size={16} />
+                        &nbsp; Request Sent
+                      </Button>
+                    ) : (
+                      <>
+                        {mentor.mentees.includes(localStorage.getItem('user_id')) ? (
+                          <Vaul_Scaled mentor_id={mentor._id} />
+                        ) : (
+                          <Button onClick={() => send_connect_req(mentor._id)} className='w-full' variant={'secondary'}>
+                            {' '}
+                            <UserRoundPlus size={16} /> &nbsp; Connect
+                          </Button>
+                        )}
+                      </>
+                    )}
+                  </CardFooter>
+                </Card>
               )}
-            </TableBody>
-          </Table>
-        </div>
-        <div className='flex items-center justify-end space-x-2 py-4'>
-          <div className='flex-1 text-sm text-muted-foreground'>
-            {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s)
-            selected.
-          </div>
-          <div className='space-x-2'>
-            <Button
-              variant='outline'
-              size='sm'
-              onClick={() => table.previousPage()}
-              disabled={!table.getCanPreviousPage()}>
-              Previous
-            </Button>
-            <Button variant='outline' size='sm' onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
-              Next
-            </Button>
-          </div>
-        </div>
+            </>
+          );
+        })}
       </div>
     </>
   );
