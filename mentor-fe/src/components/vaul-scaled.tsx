@@ -14,8 +14,8 @@ import {
 import { BASE_URL } from '../../config';
 import axios from 'axios';
 
-import { Hover_Card } from './hover-card';
 import { toast } from 'sonner';
+import { Video } from 'lucide-react';
 
 export default function Vaul_Scaled({ mentor_id }: any) {
   const [goal, setGoal] = React.useState(350);
@@ -30,8 +30,8 @@ export default function Vaul_Scaled({ mentor_id }: any) {
         url,
         withCredentials: true,
       });
-      set_calendly_id(mentor.data.calendly_id);
-      set_mentor_name(mentor.data.name);
+      set_calendly_id(mentor.data[0].calendly_id);
+      set_mentor_name(mentor.data[0].name);
     } catch (error: any) {
       toast.error(`${error.response.data.message}`);
     }
@@ -46,8 +46,8 @@ export default function Vaul_Scaled({ mentor_id }: any) {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button className='mt-3 ml-12' variant='outline'>
-          <Hover_Card name={mentor_name} />
+        <Button className='w-full'>
+          <Video size={16} />
         </Button>
       </DrawerTrigger>
       <DrawerContent>
