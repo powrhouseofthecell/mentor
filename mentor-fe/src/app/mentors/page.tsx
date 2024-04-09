@@ -1,16 +1,23 @@
-'use client';
-import axios from 'axios';
-import { toast } from 'sonner';
-import { BASE_URL } from '../../../config';
-import { useState, useEffect } from 'react';
-import { Cog, HandHelping, Loader, Send, UserRoundPlus } from 'lucide-react';
+"use client";
+import axios from "axios";
+import { toast } from "sonner";
+import { BASE_URL } from "../../../config";
+import { useState, useEffect } from "react";
+import { Cog, HandHelping, Loader, Send, UserRoundPlus } from "lucide-react";
 
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import Vaul_Scaled from '@/components/vaul-scaled';
-import Link from 'next/link';
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import Vaul_Scaled from "@/components/vaul-scaled";
+import Link from "next/link";
 
 type CardProps = React.ComponentProps<typeof Card>;
 export default function Mentors({ className, ...props }: CardProps) {
@@ -19,7 +26,7 @@ export default function Mentors({ className, ...props }: CardProps) {
   async function get_mentors(url: string) {
     try {
       const mentors = await axios({
-        method: 'GET',
+        method: "GET",
         url,
         withCredentials: true,
       });
@@ -41,11 +48,11 @@ export default function Mentors({ className, ...props }: CardProps) {
     const url_get = `${BASE_URL}/mentors`;
     try {
       await axios({
-        method: 'POST',
+        method: "POST",
         url: url_req,
         withCredentials: true,
       });
-      toast.info('Request sent!');
+      toast.info("Request sent!");
     } catch (error: any) {
       toast.error(`${error.response.data.message}`);
     }
@@ -56,64 +63,86 @@ export default function Mentors({ className, ...props }: CardProps) {
 
   return (
     <>
-      <h1 className='text-4xl pb-10 m-6 mt-0 font-black pt-16'>Mentors</h1>
-      {localStorage?.getItem('user_role') === 'mentor' ? (
-        <Link href={'/mentors/meet'}>
-          <Button className='bg-amber-200 fixed right-0 m-6 bottom-0'>
+      <h1 className="text-4xl pb-10 m-6 mt-0 font-black pt-16">Mentors</h1>
+      {localStorage?.getItem("user_role") === "mentor" ? (
+        <Link href={"/mentors/meet"}>
+          <Button className="bg-amber-200 fixed right-0 m-6 bottom-0">
             <Cog size={16} /> &nbsp; Update your ID
           </Button>
         </Link>
       ) : (
-        ''
+        ""
       )}
-      <div className='flex flex-wrap justify-center items-center gap-10'>
+      <div className="flex flex-wrap justify-center items-center gap-10">
         {mentors_list.map((mentor: any, idx: any) => {
           return (
             <>
-              {mentor._id === localStorage.getItem('user_id') ? (
-                ''
+              {mentor._id === localStorage.getItem("user_id") ? (
+                ""
               ) : (
-                <Card key={idx} className={cn('w-[380px]', className)} {...props}>
+                <Card
+                  key={idx}
+                  className={cn("w-[380px]", className)}
+                  {...props}
+                >
                   <CardHeader>
-                    <div className='flex items-center'>
+                    <div className="flex items-center">
                       <Avatar>
-                        <AvatarFallback>{mentor.name.split('')[0]}</AvatarFallback>
+                        <AvatarFallback>
+                          {mentor.name.split("")[0]}
+                        </AvatarFallback>
                       </Avatar>
-                      <CardTitle className='ml-3'>{mentor.name}</CardTitle>
+                      <CardTitle className="ml-3">{mentor.name}</CardTitle>
                     </div>
                     <CardDescription>Full Stack Developer</CardDescription>
                   </CardHeader>
-                  <CardContent className='grid gap-4'>
-                    <div className='flex items-center space-x-4 rounded-md border p-4'>
+                  <CardContent className="grid gap-4">
+                    <div className="flex items-center space-x-4 rounded-md border p-4">
                       <HandHelping />
-                      <div className='flex-1 space-y-1'>
-                        <p className='text-sm font-medium leading-none'>Mentoring</p>
-                        <p className='text-sm text-muted-foreground'>{mentor.mentees.length} Mentee/s</p>
+                      <div className="flex-1 space-y-1">
+                        <p className="text-sm font-medium leading-none">
+                          Mentoring
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {mentor.mentees.length} Mentee/s
+                        </p>
                       </div>
                     </div>
                     <div>
-                      <div className='flex items-center space-x-4 rounded-md'>
+                      <div className="flex items-center space-x-4 rounded-md">
                         <Send />
-                        <div className='flex-1 space-y-1'>
-                          <p className='text-sm font-medium leading-none'>Email</p>
-                          <p className='text-sm text-muted-foreground'>{mentor.email}</p>
+                        <div className="flex-1 space-y-1">
+                          <p className="text-sm font-medium leading-none">
+                            Email
+                          </p>
+                          <p className="text-sm text-muted-foreground">
+                            {mentor.email}
+                          </p>
                         </div>
                       </div>
                     </div>
                   </CardContent>
                   <CardFooter>
-                    {mentor.connect_request.includes(localStorage.getItem('user_id')) ? (
-                      <Button className='w-full' variant={'outline'}>
+                    {mentor.connect_request.includes(
+                      localStorage.getItem("user_id"),
+                    ) ? (
+                      <Button className="w-full" variant={"outline"}>
                         <Loader size={16} />
                         &nbsp; Request Sent
                       </Button>
                     ) : (
                       <>
-                        {mentor.mentees.includes(localStorage.getItem('user_id')) ? (
+                        {mentor.mentees.includes(
+                          localStorage.getItem("user_id"),
+                        ) ? (
                           <Vaul_Scaled mentor_id={mentor._id} />
                         ) : (
-                          <Button onClick={() => send_connect_req(mentor._id)} className='w-full' variant={'secondary'}>
-                            {' '}
+                          <Button
+                            onClick={() => send_connect_req(mentor._id)}
+                            className="w-full"
+                            variant={"secondary"}
+                          >
+                            {" "}
                             <UserRoundPlus size={16} /> &nbsp; Connect
                           </Button>
                         )}

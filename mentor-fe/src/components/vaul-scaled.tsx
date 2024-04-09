@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Drawer,
   DrawerClose,
@@ -10,23 +10,23 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from '@/components/ui/drawer';
-import { BASE_URL } from '../../config';
-import axios from 'axios';
+} from "@/components/ui/drawer";
+import { BASE_URL } from "../../config";
+import axios from "axios";
 
-import { toast } from 'sonner';
-import { Video } from 'lucide-react';
+import { toast } from "sonner";
+import { Video } from "lucide-react";
 
 export default function Vaul_Scaled({ mentor_id }: any) {
   const [goal, setGoal] = React.useState(350);
-  const [calendly_id, set_calendly_id] = React.useState('');
-  const [mentor_name, set_mentor_name] = React.useState('');
+  const [calendly_id, set_calendly_id] = React.useState("");
+  const [mentor_name, set_mentor_name] = React.useState("");
 
   const url = `${BASE_URL}/mentors/${mentor_id}`;
   async function get_mentor() {
     try {
       const mentor = await axios({
-        method: 'GET',
+        method: "GET",
         url,
         withCredentials: true,
       });
@@ -46,41 +46,48 @@ export default function Vaul_Scaled({ mentor_id }: any) {
   return (
     <Drawer>
       <DrawerTrigger asChild>
-        <Button className='w-full'>
+        <Button className="w-full">
           <Video size={16} />
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        <div className='mx-auto w-full max-w-sm'>
+        <div className="mx-auto w-full max-w-sm">
           <DrawerHeader>
             <DrawerTitle>Set a meet</DrawerTitle>
-            <DrawerDescription>You can have a 30 mins session with {mentor_name}</DrawerDescription>
+            <DrawerDescription>
+              You can have a 30 mins session with {mentor_name}
+            </DrawerDescription>
           </DrawerHeader>
-          <div className='mentor_details'>
-            <p className='text-sm text-amber-200'>
-              {mentor_name} is a full stack developer, having worked with MERN, Rust and GoLang. Connect with{' '}
-              {mentor_name} to get you CV checked and get insights about how you can land more interviews and get
+          <div className="mentor_details">
+            <p className="text-sm text-amber-200">
+              {mentor_name} is a full stack developer, having worked with MERN,
+              Rust and GoLang. Connect with {mentor_name} to get you CV checked
+              and get insights about how you can land more interviews and get
               interview prep.
             </p>
           </div>
           {calendly_id ? (
-            <div className='p-4 pb-0'>
-              <a href={`${calendly_id}/athena-mentorship-session`} className='underline' target='_blank'>
-                <Button onClick={get_mentor} className='w-full'>
+            <div className="p-4 pb-0">
+              <a
+                href={`${calendly_id}/athena-mentorship-session`}
+                className="underline"
+                target="_blank"
+              >
+                <Button onClick={get_mentor} className="w-full">
                   Set up Meet
                 </Button>
-              </a>{' '}
+              </a>{" "}
             </div>
           ) : (
-            <div className='p-4 pb-0'>
-              <Button disabled className='w-full'>
+            <div className="p-4 pb-0">
+              <Button disabled className="w-full">
                 Set up Meet
               </Button>
             </div>
           )}
           <DrawerFooter>
             <DrawerClose asChild>
-              <Button variant='outline'>Cancel</Button>
+              <Button variant="outline">Cancel</Button>
             </DrawerClose>
           </DrawerFooter>
         </div>

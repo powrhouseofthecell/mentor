@@ -1,5 +1,5 @@
-'use client';
-import { Button } from '@/components/ui/button';
+"use client";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,14 +7,14 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import axios from 'axios';
-import { BASE_URL } from '../../config';
-import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
-import { ModeToggle } from '@/components/theme-switch';
-import { HamburgerMenuIcon } from '@radix-ui/react-icons';
-import Link from 'next/link';
+} from "@/components/ui/dropdown-menu";
+import axios from "axios";
+import { BASE_URL } from "../../config";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { ModeToggle } from "@/components/theme-switch";
+import { HamburgerMenuIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
 
 export function Dropdown_Menu() {
   const router = useRouter();
@@ -23,14 +23,14 @@ export function Dropdown_Menu() {
     const url = `${BASE_URL}/auth/logout`;
     try {
       const response = await axios({
-        method: 'POST',
+        method: "POST",
         url,
       });
       if (!response.data.error) {
-        toast.info('You are logged out!');
-        localStorage?.setItem('isLoggedIn', 'false');
-        localStorage?.removeItem('user_id');
-        router.push('/login');
+        toast.info("You are logged out!");
+        localStorage?.setItem("isLoggedIn", "false");
+        localStorage?.removeItem("user_id");
+        router.push("/login");
       }
     } catch (error: any) {
       toast.error(`${error.response.data.message}`);
@@ -40,38 +40,38 @@ export function Dropdown_Menu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='outline'>
+        <Button variant="outline">
           <HamburgerMenuIcon />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='w-56'>
+      <DropdownMenuContent className="w-56">
         <div>
           <ModeToggle />
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <Link href='/me'>
+          <Link href="/me">
             <DropdownMenuItem>My Profile</DropdownMenuItem>
           </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <Link href='/resources'>
+          <Link href="/resources">
             <DropdownMenuItem>Resources</DropdownMenuItem>
           </Link>
-          <Link href='/events'>
+          <Link href="/events">
             <DropdownMenuItem>Events</DropdownMenuItem>
           </Link>
-          <Link href='/mentors'>
+          <Link href="/mentors">
             <DropdownMenuItem>Mentors</DropdownMenuItem>
           </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>Team</DropdownMenuItem>
-        <a target='__blank' href='https://github.com/powrhouseofthecell'>
+        <a target="__blank" href="https://github.com/powrhouseofthecell">
           <DropdownMenuItem>GitHub</DropdownMenuItem>
         </a>
-        <Link href={'/faqs'}>
+        <Link href={"/faqs"}>
           <DropdownMenuItem>FAQs</DropdownMenuItem>
         </Link>
         <DropdownMenuSeparator />

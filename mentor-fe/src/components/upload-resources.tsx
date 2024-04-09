@@ -1,14 +1,23 @@
-import { Button } from '@/components/ui/button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import axios from 'axios';
-import { Upload } from 'lucide-react';
-import { BASE_URL } from '../../config';
-import { toast } from 'sonner';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useState } from 'react';
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import axios from "axios";
+import { Upload } from "lucide-react";
+import { BASE_URL } from "../../config";
+import { toast } from "sonner";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useState } from "react";
 
-export default function Upload_Resources({ get_resources, set_resources }: any) {
+export default function Upload_Resources({
+  get_resources,
+  set_resources,
+}: any) {
   const [file, set_file] = useState<any>();
   const set_file_for_upload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files!);
@@ -18,9 +27,9 @@ export default function Upload_Resources({ get_resources, set_resources }: any) 
     const url = `${BASE_URL}/resources/upload/`;
     try {
       const formData = new FormData();
-      formData.append('file', file);
+      formData.append("file", file);
       const response = await axios({
-        method: 'POST',
+        method: "POST",
         url,
         data: formData,
         withCredentials: true,
@@ -36,22 +45,22 @@ export default function Upload_Resources({ get_resources, set_resources }: any) 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className='bg-amber-200 fixed right-0 m-6 bottom-0'>
-          <Button className='bg-amber-200 fixed right-0 m-6 bottom-0'>
+        <Button className="bg-amber-200 fixed right-0 m-6 bottom-0">
+          <Button className="bg-amber-200 fixed right-0 m-6 bottom-0">
             <Upload size={16} /> &nbsp; Upload resources
           </Button>
         </Button>
       </DialogTrigger>
-      <DialogContent className='sm:max-w-[425px]'>
+      <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Upload Resource</DialogTitle>
         </DialogHeader>
 
-        <div className='grid w-full max-w-sm items-center gap-1.5'>
-          <Label className='' htmlFor='resource'>
+        <div className="grid w-full max-w-sm items-center gap-1.5">
+          <Label className="" htmlFor="resource">
             Picture
           </Label>
-          <Input onChange={set_file_for_upload} id='resource' type='file' />
+          <Input onChange={set_file_for_upload} id="resource" type="file" />
           <Button onClick={handle_file_selected}>Upload</Button>
         </div>
       </DialogContent>

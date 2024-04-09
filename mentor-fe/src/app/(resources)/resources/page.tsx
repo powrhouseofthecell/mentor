@@ -1,13 +1,13 @@
-'use client';
-import axios from 'axios';
-import { BASE_URL } from '../../../../config';
-import { useEffect, useState } from 'react';
-import Resource_Card from '@/components/resource-card';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { Cog, Upload } from 'lucide-react';
-import Upload_Resources from '@/components/upload-resources';
-import { toast } from 'sonner';
+"use client";
+import axios from "axios";
+import { BASE_URL } from "../../../../config";
+import { useEffect, useState } from "react";
+import Resource_Card from "@/components/resource-card";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Cog, Upload } from "lucide-react";
+import Upload_Resources from "@/components/upload-resources";
+import { toast } from "sonner";
 
 export default function All_Resources() {
   const [resources, set_resources] = useState<any>([]);
@@ -22,7 +22,7 @@ export default function All_Resources() {
   async function get_resources(url: string) {
     try {
       const resources = await axios({
-        method: 'GET',
+        method: "GET",
         url,
         withCredentials: true,
       });
@@ -34,14 +34,19 @@ export default function All_Resources() {
 
   return (
     <>
-      <div className='pt-16'>
-        <h1 className='text-4xl pb-10 m-6 mt-0 font-black'>Resources Section</h1>
-        {localStorage?.getItem('user_role') === 'mentor' ? (
-          <Upload_Resources get_resources={get_resources} set_resources={set_resources} />
+      <div className="pt-16">
+        <h1 className="text-4xl pb-10 m-6 mt-0 font-black">
+          Resources Section
+        </h1>
+        {localStorage?.getItem("user_role") === "mentor" ? (
+          <Upload_Resources
+            get_resources={get_resources}
+            set_resources={set_resources}
+          />
         ) : (
-          ''
+          ""
         )}
-        <div className='flex flex-wrap justify-center '>
+        <div className="flex flex-wrap justify-center ">
           {resources?.map((resource: any, idx: any) => {
             return (
               <>
