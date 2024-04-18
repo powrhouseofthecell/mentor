@@ -6,15 +6,15 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Request_Table from "@/components/check-req-table";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink } from "lucide-react";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 type user_type = {
   _id: string;
@@ -46,6 +46,23 @@ export default function Me() {
         url,
         withCredentials: true,
       });
+      return mentor;
+    } catch (error: any) {
+      toast.error(`${error.response.data.message}`);
+    }
+  }
+
+  async function accept_connection_req(id: string) {
+    const url = `${BASE_URL}/mentors/accept/`;
+    const data = { mentee_id: id };
+    try {
+      const mentor = await axios({
+        method: "POST",
+        url,
+        data,
+        withCredentials: true,
+      });
+      toast.info("Connected!");
       return mentor;
     } catch (error: any) {
       toast.error(`${error.response.data.message}`);
@@ -94,10 +111,44 @@ export default function Me() {
             ""
           )}
 
-          <CardContent className="flex justify-center"></CardContent>
+          <hr />
+
+          <CardContent className="flex justify-center">
+            {user?.connect_request?.length! > 0 && (
+              <div className="w-[800px]">
+                <h2 className="my-3">Your connections requests</h2>
+                <CardContent className="space-y-2">
+                  {user?.connect_request.map((mentee: any, idx: any) => {
+                    return (
+                      <div
+                        key={idx}
+                        className="rounded-md border px-4 py-3 font-mono text-sm flex justify-between items-center"
+                      >
+                        <span className="flex items-center">
+                          <Avatar>
+                            <AvatarFallback>
+                              {mentee.name.split("")[0]}
+                            </AvatarFallback>
+                          </Avatar>
+                          {mentee.name}
+                        </span>
+                        <Button
+                          onClick={() => accept_connection_req(mentee._id)}
+                          variant={"secondary"}
+                        >
+                          Accept
+                          {/* <CheckIcon size={16} /> */}
+                        </Button>
+                      </div>
+                    );
+                  })}
+                </CardContent>
+              </div>
+            )}
+          </CardContent>
         </Card>
 
-        <Request_Table user={user} />
+        {/* <Request_Table user={user} /> */}
       </div>
     </>
   );
