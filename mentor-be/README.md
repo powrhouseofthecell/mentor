@@ -1,1 +1,2 @@
-Everyone by default is a mentee.
+Mentorship Backend
+Boostrapped with NodeJS, Express, MongoDB, and TypeScript.
