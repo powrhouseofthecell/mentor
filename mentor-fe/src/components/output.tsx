@@ -33,7 +33,7 @@ const Output = ({ editorRef, language }: any) => {
         <Play size={20} strokeWidth={3} />
       </Button>
       <Card>
-        <CardContent className="w-[585px] h-[800px]">
+        <CardContent className="w-[555px] h-[800px]">
           {output
             ? output?.map((line: any, i: any) => {
                 return <p key={i}>{line}</p>;

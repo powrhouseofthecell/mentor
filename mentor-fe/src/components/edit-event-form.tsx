@@ -75,7 +75,7 @@ export default function Edit_Event_Form({ id }: any) {
           name="event_description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Event name</FormLabel>
+              <FormLabel>Event description</FormLabel>
               <FormControl>
                 <Textarea placeholder="Type your description here" {...field} />
               </FormControl>
