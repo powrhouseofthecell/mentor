@@ -16,6 +16,15 @@ router.get(
   events_controller.get_all_user_events,
 );
 
+router.get(
+  "/:id",
+  auth_controller.protect,
+  // only a mentor can check the event details.
+  middlewares.role_check,
+  middlewares.is_my_event,
+  events_controller.get_event,
+);
+
 // if not authenticated still get 200 statusCode.
 router.post(
   "/create",
