@@ -130,6 +130,7 @@ export default function Me() {
                               {mentee.name.split("")[0]}
                             </AvatarFallback>
                           </Avatar>
+                          &nbsp;
                           {mentee.name}
                         </span>
                         <Button
