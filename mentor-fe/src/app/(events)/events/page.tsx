@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  ActivityLogIcon,
   BellIcon,
   CheckIcon,
   EnvelopeOpenIcon,
@@ -24,6 +25,7 @@ import { CalendarRange } from "lucide-react";
 import Delete_Event from "@/components/delete-event";
 import Create_Event from "@/components/create-event";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type CardProps = React.ComponentProps<typeof Card>;
 
@@ -41,6 +43,12 @@ async function get_events(url: any) {
 }
 
 export default function CardDemo({ className, ...props }: CardProps) {
+  const router = useRouter();
+
+  const get_event_attendies = (event_id: string) => {
+    router.push(`/events/attendies/${event_id}`);
+  };
+
   const [events, set_events] = useState<any>([]);
 
   useEffect(() => {
@@ -80,11 +88,20 @@ export default function CardDemo({ className, ...props }: CardProps) {
                   <span>
                     {localStorage?.getItem("user_id") ===
                     event.organised_by._id ? (
+                      <Button onClick={() => get_event_attendies(event._id)}>
+                        <ActivityLogIcon />
+                      </Button>
+                    ) : (
+                      ""
+                    )}
+                    <span className="mx-1"></span>
+                    {localStorage?.getItem("user_id") ===
+                    event.organised_by._id ? (
                       <Edit_Event id={event._id} />
                     ) : (
                       ""
                     )}
-                    <span className="m-3"></span>
+                    <span className="mx-1"></span>
                     {localStorage?.getItem("user_id") ===
                     event.organised_by._id ? (
                       <Delete_Event id={event._id} />

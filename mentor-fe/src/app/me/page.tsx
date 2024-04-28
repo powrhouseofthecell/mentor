@@ -88,7 +88,6 @@ export default function Me() {
                   </Link>
                 )}
               </p> */}
-              {/* {console.log(user.mentees.length)} */}
               {/* <div>
                 <div className='flex flex-col items-center'>
                   <span>{user?.mentees.length}</span>
