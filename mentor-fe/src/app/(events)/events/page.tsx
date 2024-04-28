@@ -1,12 +1,7 @@
 "use client";
 
-import {
-  ActivityLogIcon,
-  BellIcon,
-  CheckIcon,
-  EnvelopeOpenIcon,
-  Pencil1Icon,
-} from "@radix-ui/react-icons";
+import { ActivityLogIcon, BellIcon } from "@radix-ui/react-icons";
+import { UserCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -139,24 +134,13 @@ export default function CardDemo({ className, ...props }: CardProps) {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button
-                  onClick={() => handle_event_attendece(event._id)}
-                  className="w-full"
-                >
-                  {event.attended_by.includes(
-                    localStorage.getItem("user_id"),
-                  ) ? (
-                    <>
-                      <CheckIcon className="mr-2 h-4 w-4" /> Your seat is
-                      reserved.
-                    </>
-                  ) : (
-                    <>
-                      <CheckIcon className="mr-2 h-4 w-4" /> Click to attend the
-                      event.
-                    </>
-                  )}
-                </Button>
+                {event.attended_by.includes(localStorage.getItem("user_id")) ? (
+                  <Button className="w-full" disabled variant="outline">
+                    <UserCheck size={16} /> &nbsp; Your seat is reserved.
+                  </Button>
+                ) : (
+                  <Button className="w-full">Click to attend the event.</Button>
+                )}
               </CardFooter>
             </Card>
           );
