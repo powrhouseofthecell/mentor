@@ -1,11 +1,7 @@
 "use client";
 
-import {
-  BellIcon,
-  CheckIcon,
-  EnvelopeOpenIcon,
-  Pencil1Icon,
-} from "@radix-ui/react-icons";
+import { ActivityLogIcon, BellIcon } from "@radix-ui/react-icons";
+import { UserCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,6 +20,7 @@ import { CalendarRange } from "lucide-react";
 import Delete_Event from "@/components/delete-event";
 import Create_Event from "@/components/create-event";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type CardProps = React.ComponentProps<typeof Card>;
 
@@ -41,6 +38,12 @@ async function get_events(url: any) {
 }
 
 export default function CardDemo({ className, ...props }: CardProps) {
+  const router = useRouter();
+
+  const get_event_attendies = (event_id: string) => {
+    router.push(`/events/attendies/${event_id}`);
+  };
+
   const [events, set_events] = useState<any>([]);
 
   useEffect(() => {
@@ -80,11 +83,20 @@ export default function CardDemo({ className, ...props }: CardProps) {
                   <span>
                     {localStorage?.getItem("user_id") ===
                     event.organised_by._id ? (
+                      <Button onClick={() => get_event_attendies(event._id)}>
+                        <ActivityLogIcon />
+                      </Button>
+                    ) : (
+                      ""
+                    )}
+                    <span className="mx-1"></span>
+                    {localStorage?.getItem("user_id") ===
+                    event.organised_by._id ? (
                       <Edit_Event id={event._id} />
                     ) : (
                       ""
                     )}
-                    <span className="m-3"></span>
+                    <span className="mx-1"></span>
                     {localStorage?.getItem("user_id") ===
                     event.organised_by._id ? (
                       <Delete_Event id={event._id} />
@@ -122,24 +134,13 @@ export default function CardDemo({ className, ...props }: CardProps) {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button
-                  onClick={() => handle_event_attendece(event._id)}
-                  className="w-full"
-                >
-                  {event.attended_by.includes(
-                    localStorage.getItem("user_id"),
-                  ) ? (
-                    <>
-                      <CheckIcon className="mr-2 h-4 w-4" /> Your seat is
-                      reserved.
-                    </>
-                  ) : (
-                    <>
-                      <CheckIcon className="mr-2 h-4 w-4" /> Click to attend the
-                      event.
-                    </>
-                  )}
-                </Button>
+                {event.attended_by.includes(localStorage.getItem("user_id")) ? (
+                  <Button className="w-full" disabled variant="outline">
+                    <UserCheck size={16} /> &nbsp; Your seat is reserved.
+                  </Button>
+                ) : (
+                  <Button className="w-full">Click to attend the event.</Button>
+                )}
               </CardFooter>
             </Card>
           );

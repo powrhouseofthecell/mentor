@@ -19,7 +19,6 @@ const Output = ({ editorRef, language }: any) => {
       setOutput(result.output.split("\n"));
       result.stderr ? setIsError(true) : setIsError(false);
     } catch (error: any) {
-      console.log(error);
       toast.error("An error occurred.");
     } finally {
       setIsLoading(false);

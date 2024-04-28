@@ -17,7 +17,6 @@ const CodeEditor = () => {
   };
 
   const onSelect = (language: any) => {
-    console.log("logging");
     setLanguage(language);
     setValue(CODE_SNIPPETS[language]);
   };
