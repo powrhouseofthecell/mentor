@@ -14,6 +14,17 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { ModeToggle } from "@/components/theme-switch";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
+import {
+  Keyboard,
+  Newspaper,
+  Users,
+  CalendarClock,
+  CircleUser,
+  LogOut,
+  Github,
+  MessageCircleQuestion,
+  ShieldHalf,
+} from "lucide-react";
 import Link from "next/link";
 
 export function Dropdown_Menu() {
@@ -51,34 +62,56 @@ export function Dropdown_Menu() {
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           <Link href="/me">
-            <DropdownMenuItem>My Profile</DropdownMenuItem>
+            <DropdownMenuItem>
+              {" "}
+              <CircleUser size={16} /> &nbsp; My Profile
+            </DropdownMenuItem>
           </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <Link href="/resources">
-            <DropdownMenuItem>Resources</DropdownMenuItem>
-          </Link>
           <Link href="/events">
-            <DropdownMenuItem>Events</DropdownMenuItem>
+            <DropdownMenuItem>
+              <CalendarClock size={16} /> &nbsp; Events
+            </DropdownMenuItem>
           </Link>
           <Link href="/mentors">
-            <DropdownMenuItem>Mentors</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Users size={16} /> &nbsp; Mentors
+            </DropdownMenuItem>
           </Link>
           <Link href="/playground">
-            <DropdownMenuItem>Playground</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Keyboard size={16} /> &nbsp; Playground
+            </DropdownMenuItem>
+          </Link>
+          <Link href="/resources">
+            <DropdownMenuItem>
+              <Newspaper size={16} /> &nbsp; Resources
+            </DropdownMenuItem>
           </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Team</DropdownMenuItem>
+        <DropdownMenuItem>
+          {" "}
+          <ShieldHalf size={16} /> &nbsp; Team
+        </DropdownMenuItem>
         <a target="__blank" href="https://github.com/powrhouseofthecell">
-          <DropdownMenuItem>GitHub</DropdownMenuItem>
+          <DropdownMenuItem>
+            <Github size={16} /> &nbsp; GitHub
+          </DropdownMenuItem>
         </a>
         <Link href={"/faqs"}>
-          <DropdownMenuItem>FAQs</DropdownMenuItem>
+          <DropdownMenuItem>
+            {" "}
+            <MessageCircleQuestion size={16} /> &nbsp; FAQs
+          </DropdownMenuItem>
         </Link>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handle_logout}>Log out</DropdownMenuItem>
+        <DropdownMenuItem onClick={handle_logout}>
+          {" "}
+          <LogOut size={16} /> &nbsp; Log out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
