@@ -17,3 +17,5 @@ Use [http://127.0.0.1:3000](http://127.0.0.1:3000) on any of the API testing pla
 #### To use the secure version
 
 Use [https://127.0.0.1:3443](https://127.0.0.1:3443)
+
+> Make sure to add the path of your certificates to the env file as **SSL*CERT_PATH***
