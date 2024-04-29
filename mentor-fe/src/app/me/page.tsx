@@ -112,40 +112,42 @@ export default function Me() {
 
           <hr />
 
-          <CardContent className="flex justify-center">
-            {user?.connect_request?.length! > 0 && (
-              <div className="w-[800px]">
-                <h2 className="my-3">Your connections requests</h2>
-                <CardContent className="space-y-2">
-                  {user?.connect_request.map((mentee: any, idx: any) => {
-                    return (
-                      <div
-                        key={idx}
-                        className="rounded-md border px-4 py-3 font-mono text-sm flex justify-between items-center"
-                      >
-                        <span className="flex items-center">
-                          <Avatar>
-                            <AvatarFallback>
-                              {mentee.name.split("")[0]}
-                            </AvatarFallback>
-                          </Avatar>
-                          &nbsp;
-                          {mentee.name}
-                        </span>
-                        <Button
-                          onClick={() => accept_connection_req(mentee._id)}
-                          variant={"secondary"}
+          {user?.connect_request?.length! > 0 && (
+            <CardContent className="flex justify-center">
+              {user?.connect_request?.length! > 0 && (
+                <div className="w-[800px]">
+                  <h2 className="my-3">Your connections requests</h2>
+                  <CardContent className="space-y-2">
+                    {user?.connect_request.map((mentee: any, idx: any) => {
+                      return (
+                        <div
+                          key={idx}
+                          className="rounded-md border px-4 py-3 font-mono text-sm flex justify-between items-center"
                         >
-                          Accept
-                          {/* <CheckIcon size={16} /> */}
-                        </Button>
-                      </div>
-                    );
-                  })}
-                </CardContent>
-              </div>
-            )}
-          </CardContent>
+                          <span className="flex items-center">
+                            <Avatar>
+                              <AvatarFallback>
+                                {mentee.name.split("")[0]}
+                              </AvatarFallback>
+                            </Avatar>
+                            &nbsp;
+                            {mentee.name}
+                          </span>
+                          <Button
+                            onClick={() => accept_connection_req(mentee._id)}
+                            variant={"secondary"}
+                          >
+                            Accept
+                            {/* <CheckIcon size={16} /> */}
+                          </Button>
+                        </div>
+                      );
+                    })}
+                  </CardContent>
+                </div>
+              )}
+            </CardContent>
+          )}
         </Card>
 
         {/* <Request_Table user={user} /> */}

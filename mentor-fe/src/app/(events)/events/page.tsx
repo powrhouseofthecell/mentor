@@ -64,6 +64,7 @@ export default function CardDemo({ className, ...props }: CardProps) {
     const get_event_url = `${BASE_URL}/events`;
     get_events(get_event_url).then((events) => {
       set_events(events?.data.data);
+      toast.info("Your seat is reserved");
     });
   }
 
@@ -135,11 +136,21 @@ export default function CardDemo({ className, ...props }: CardProps) {
               </CardContent>
               <CardFooter>
                 {event.attended_by.includes(localStorage.getItem("user_id")) ? (
-                  <Button className="w-full" disabled variant="outline">
+                  <Button
+                    onClick={() => handle_event_attendece(event._id)}
+                    className="w-full"
+                    disabled
+                    variant="outline"
+                  >
                     <UserCheck size={16} /> &nbsp; Your seat is reserved.
                   </Button>
                 ) : (
-                  <Button className="w-full">Click to attend the event.</Button>
+                  <Button
+                    onClick={() => handle_event_attendece(event._id)}
+                    className="w-full"
+                  >
+                    Click to attend the event.
+                  </Button>
                 )}
               </CardFooter>
             </Card>
