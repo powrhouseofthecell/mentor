@@ -10,8 +10,14 @@ const event_schema = new Schema({
     required: true,
   },
   event_date: {
-    type: String,
-    required: true,
+    to: {
+      type: Date,
+      required: true,
+    },
+    from: {
+      type: Date,
+      required: true,
+    },
   },
   organised_by: {
     type: mongoose.Types.ObjectId,
