@@ -19,8 +19,8 @@ export default function Date_Picker_With_Range({
   get_date,
 }: React.HTMLAttributes<HTMLDivElement> | any) {
   const [date, setDate] = React.useState<DateRange | undefined>({
-    from: new Date(2022, 0, 20),
-    to: addDays(new Date(2022, 0, 20), 20),
+    from: Date.now() as unknown as Date | undefined,
+    to: addDays(Date.now(), 20),
   });
 
   // sending props to the parent.
