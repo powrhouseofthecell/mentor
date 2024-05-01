@@ -44,8 +44,8 @@ export default function Create_Event({ id }: any) {
     const url = `${BASE_URL}/events/create`;
 
     const { event_description, event_name } = values;
-    // const event_date = date;
-    const event_date = "12-08-2024";
+    const event_date = date;
+    // const event_date = "12-08-2024";
 
     try {
       const response = await axios({
@@ -88,7 +88,7 @@ export default function Create_Event({ id }: any) {
             name="event_description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Event name</FormLabel>
+                <FormLabel>Event description</FormLabel>
                 <FormControl>
                   <Textarea
                     placeholder="Type your description here"
@@ -100,9 +100,9 @@ export default function Create_Event({ id }: any) {
             )}
           />
           {/*  */}
-          {/* <FormField
+          <FormField
             control={form.control}
-            name='event_date'
+            name="event_date"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Event date</FormLabel>
@@ -112,7 +112,7 @@ export default function Create_Event({ id }: any) {
                 <FormMessage />
               </FormItem>
             )}
-          /> */}
+          />
 
           <Button type="submit">Create Event</Button>
         </form>
