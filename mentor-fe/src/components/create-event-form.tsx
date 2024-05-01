@@ -58,7 +58,7 @@ export default function Create_Event_Form() {
       toast.error(`${error.response.data.message}`);
     }
     setTimeout(() => {
-      // location.reload();
+      location.reload();
     }, 500);
   }
   return (
