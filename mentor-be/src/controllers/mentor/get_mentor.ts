@@ -10,6 +10,7 @@ export default async function get_mentor(
   try {
     const mentor = await User.find({ _id: mentor_id })
       .populate("mentees")
+      .populate("mentors")
       .populate("connect_request");
     res.send(mentor);
   } catch (error) {
