@@ -20,10 +20,11 @@ export default async function login(
   res: Response,
   next: NextFunction,
 ) {
-  const { email, password } = req.body;
+  let { email, password } = req.body;
   try {
     //TODO: Make this more moduler
     // 1. Find the user.
+    email = email.toLowerCase();
     const user = await User.findOne({ email });
 
     // 2. Compare the has with the 'password'
