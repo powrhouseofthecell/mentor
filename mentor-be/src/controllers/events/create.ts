@@ -9,7 +9,15 @@ export default async function create(
   next: NextFunction,
 ) {
   try {
-    const { event_name, event_date, event_description } = req.body;
+    let { event_name, event_date, event_description } = req.body;
+
+    const to = new Date(event_date.to).toDateString();
+    const from = new Date(event_date.from).toDateString();
+
+    event_date = {
+      to,
+      from,
+    };
     // const user_id = req.user._id.valueOf();
     // to convert ObjectId to string
     const user_id = req.user._id.toString();
