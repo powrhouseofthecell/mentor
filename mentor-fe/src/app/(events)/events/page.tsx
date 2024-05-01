@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -16,7 +15,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../../../config";
 import Edit_Event from "@/components/edit-event";
-import { CalendarRange } from "lucide-react";
 import Delete_Event from "@/components/delete-event";
 import Create_Event from "@/components/create-event";
 import { toast } from "sonner";
@@ -108,7 +106,7 @@ export default function CardDemo({ className, ...props }: CardProps) {
                 </CardTitle>
               </CardHeader>
               <CardContent className="grid gap-4">
-                <div className=" flex items-center space-x-4 rounded-md border p-4">
+                <div className="flex items-center space-x-4 rounded-md border p-4">
                   <BellIcon />
                   <div className="flex-1 space-y-1">
                     <p className="text-sm font-medium leading-none">
@@ -119,7 +117,22 @@ export default function CardDemo({ className, ...props }: CardProps) {
                       {event.organised_by.name}
                     </p>
                     <p className="text-sm text-muted-foreground text-stone-300">
-                      {event.event_date}
+                      <span className="">
+                        &nbsp;
+                        <span className="">
+                          {new Date(event.event_date.from).toLocaleDateString(
+                            "en-us",
+                            { day: "numeric", month: "short", year: "numeric" },
+                          )}
+                        </span>
+                        <span className="mx-3">To:</span>
+                        <span>
+                          {new Date(event.event_date.to).toLocaleDateString(
+                            "en-us",
+                            { day: "numeric", month: "short", year: "numeric" },
+                          )}
+                        </span>
+                      </span>
                     </p>
                   </div>
                 </div>
