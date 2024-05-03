@@ -69,10 +69,9 @@ export default function Vaul_Scaled({ mentor_id }: any) {
           {calendly_id ? (
             <div className="p-4 pb-0">
               <a
-                href={`${calendly_id}/athena-mentorship-session`}
+                href={`${calendly_id}/mentorship-session`}
                 className="underline"
-                target="_blank"
-              >
+                target="_blank">
                 <Button onClick={get_mentor} className="w-full">
                   Set up Meet
                 </Button>
