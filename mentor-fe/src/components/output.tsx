@@ -32,12 +32,16 @@ const Output = ({ editorRef, language }: any) => {
         <Play size={20} strokeWidth={3} />
       </Button>
       <Card>
-        <CardContent className="w-[555px] h-[800px]">
-          {output
-            ? output?.map((line: any, i: any) => {
-                return <p key={i}>{line}</p>;
-              })
-            : 'Click "Run code" to see the output'}
+        <CardContent className="w-[555px] h-[740px]">
+          {output ? (
+            output?.map((line: any, i: any) => {
+              return <p key={i}>{line}</p>;
+            })
+          ) : (
+            <p className="py-16 flex items-center justify-center">
+              Click &ldquo;Run code &ldquo; to see the output
+            </p>
+          )}
         </CardContent>
       </Card>
     </>

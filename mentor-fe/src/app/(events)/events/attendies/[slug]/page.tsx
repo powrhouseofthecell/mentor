@@ -64,7 +64,7 @@ export const columns: ColumnDef<Attendies_Type>[] = [
   },
   {
     accessorKey: "role",
-    header: () => <div className="text-right">Amount</div>,
+    header: () => <div className="text-right">Role</div>,
     cell: ({ row }) => {
       const role = row.getValue("role") as string;
 

@@ -35,7 +35,7 @@ export default function Vaul_Scaled({ mentor_id }: any) {
             </li>
             <li className="text-sm text-amber-200">
               Make sure you&rsquo;ve an event create named{" "}
-              <i className="text-amber-400">Athena - Mentorship Session</i>
+              <i className="text-amber-400">Mentorship Session</i>
             </li>
           </div>
 

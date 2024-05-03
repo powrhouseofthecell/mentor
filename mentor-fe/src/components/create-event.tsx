@@ -6,7 +6,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { CalendarRange, Settings2 } from "lucide-react";
+import { CalendarRange } from "lucide-react";
 import Create_Event_Form from "./create-event-form";
 
 export default function Create_Event() {

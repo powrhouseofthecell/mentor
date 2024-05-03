@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -32,16 +33,22 @@ export default function Create_Event_Form() {
     resolver: zodResolver(formSchema),
   });
 
+  const [create_event_date, set_create_event_date] = useState();
+
+  function get_date(create_date: any) {
+    set_create_event_date(create_date);
+  }
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const url = `${BASE_URL}/events/create`;
 
     const { event_description, event_name } = values;
-    const event_date = "12-07-2024";
+    // const event_date = "12-07-2024";
     try {
       const response = await axios({
         method: "POST",
         url,
-        data: { event_description, event_name, event_date },
+        data: { event_description, event_name, event_date: create_event_date },
         withCredentials: true,
       });
       if (!response.data.error) {
@@ -85,19 +92,19 @@ export default function Create_Event_Form() {
           )}
         />
         {/*  */}
-        {/* <FormField
+        <FormField
           control={form.control}
-          name='event_date'
+          name="event_date"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Event date</FormLabel>
               <FormControl>
-                <Date_Picker_With_Range />
+                <Date_Picker_With_Range get_date={get_date} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
-        /> */}
+        />
 
         <Button type="submit">Submit</Button>
       </form>

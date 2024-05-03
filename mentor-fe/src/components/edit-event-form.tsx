@@ -20,6 +20,7 @@ import Date_Picker_With_Range from "./date-picker-range";
 import { BASE_URL } from "../../config";
 import { toast } from "sonner";
 import axios from "axios";
+import { useState } from "react";
 
 const formSchema = z.object({
   event_name: z.any(),
@@ -28,19 +29,25 @@ const formSchema = z.object({
 });
 
 export default function Edit_Event_Form({ id }: any) {
+  const [event_date, set_event_date] = useState(undefined);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
+  function get_date(update_date: any) {
+    set_event_date(update_date);
+  }
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const url = `${BASE_URL}/events/${id}`;
 
-    const { event_description, event_name } = values;
+    let { event_description, event_name } = values;
+
     try {
       const response = await axios({
         method: "PUT",
         url,
-        data: { event_description, event_name },
+        data: { event_description, event_name, event_date },
         withCredentials: true,
       });
       if (!response.data.error) {
@@ -84,19 +91,19 @@ export default function Edit_Event_Form({ id }: any) {
           )}
         />
         {/*  */}
-        {/* <FormField
+        <FormField
           control={form.control}
-          name='event_date'
+          name="event_date"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Event date</FormLabel>
               <FormControl>
-                <Date_Picker_With_Range />
+                <Date_Picker_With_Range get_date={get_date} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
-        /> */}
+        />
 
         <Button type="submit">Submit</Button>
       </form>

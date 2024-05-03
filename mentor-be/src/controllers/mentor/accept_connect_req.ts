@@ -21,6 +21,13 @@ export default async function accept_request(
       },
     );
 
+    await User.updateOne(
+      { _id: mentee_id },
+      {
+        $addToSet: { mentors: req.user._id },
+      },
+    );
+
     res.send({
       error: false,
       message: "Request accepted",
