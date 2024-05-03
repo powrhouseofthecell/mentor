@@ -15,6 +15,8 @@ import { ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import My_Mentees_List from "@/components/my-mentees-list";
+import My_Mentors_List from "@/components/my-mentors-list";
 
 type user_type = {
   _id: string;
@@ -94,8 +96,10 @@ export default function Me() {
                   <span>Mentees</span>
                 </div>
               </div> */}
+              <CardDescription className="text-gray-600">
+                {user?.email}
+              </CardDescription>
               <CardDescription>Full Stack Developer</CardDescription>
-              <CardDescription>{user?.email}</CardDescription>
               {user?.calendly_id ? (
                 ""
               ) : (
@@ -105,6 +109,31 @@ export default function Me() {
                   </Badge>
                 </Link>
               )}
+              <CardDescription className="flex justify-center">
+                <My_Mentees_List mentees={user?.mentees} />
+                <My_Mentors_List mentors={user?.mentors} />
+
+                {/* <Button
+                  onClick={() => {
+                    console.log("this is done onClick", user.mentors);
+                  }}
+                  variant="ghost"
+                  className="flex flex-col"
+                >
+                  <span>{user?.mentors.length}</span>
+                  <span>My mentors</span>
+                </Button>
+                <Button
+                  onClick={() => {
+                    console.log("this is done onClick", user.mentees);
+                  }}
+                  variant="ghost"
+                  className="flex flex-col"
+                >
+                  <span>{user?.mentees.length}</span>
+                  <span>Mentoring</span>
+                </Button> */}
+              </CardDescription>
             </CardHeader>
           ) : (
             ""
