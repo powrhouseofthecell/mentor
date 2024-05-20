@@ -65,6 +65,7 @@ export default function Me() {
         withCredentials: true,
       });
       toast.info("Connected!");
+      location.reload()
       return mentor;
     } catch (error: any) {
       toast.error(`${error.response.data.message}`);
