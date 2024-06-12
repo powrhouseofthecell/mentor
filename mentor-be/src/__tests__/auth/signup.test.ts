@@ -18,7 +18,7 @@ describe('POST /signup', () => {
     await User.deleteMany({});
   });
 
-  it('should create a new user', async () => {
+  it('should create a new user, and login', async () => {
     const response = await request(app)
       .post('/api/v1/auth/signup')
       .send({
@@ -34,6 +34,15 @@ describe('POST /signup', () => {
 
     const user = await User.findOne({ email: 'john@example.com' });
     expect(user).not.toBeNull();
+
+    it("should login", async () => {
+      const response = await request(app)
+        .post('api/v1/auth/login')
+        .send({ email: "john@example.com", password: "password123" })
+      expect(response.status).toBe(200)
+    })
+
+
   });
 
   it('should fail if email is missing', async () => {
