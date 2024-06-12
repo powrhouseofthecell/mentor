@@ -5,7 +5,7 @@ import User from '../../models/entities/user';
 
 describe('POST /signup', () => {
   beforeAll(async () => {
-    const DB_URI = "mongodb+srv://zuhaib:zuhaibnazir@cluster0.dtssipk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    const DB_URI = process.env.DB_URI_TESTING as string
     await mongoose.connect(DB_URI);
   });
 
