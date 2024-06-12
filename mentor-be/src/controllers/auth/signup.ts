@@ -15,5 +15,10 @@ export default async function signup(
     } catch (error) {
       next(error);
     }
+  } else {
+    res.status(400).json({
+      message: "name, email and password are required",
+      status: res.status
+    })
   }
 }
