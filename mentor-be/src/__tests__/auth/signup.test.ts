@@ -5,7 +5,8 @@ import User from '../../models/entities/user';
 
 describe('POST /signup', () => {
   beforeAll(async () => {
-    const DB_URI = process.env.DB_URI_TESTING as string
+    // const DB_URI = process.env.DB_URI_TESTING as string
+    const DB_URI = "mongodb+srv://zuhaib:zuhaibnazir@cluster0.dtssipk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
     await mongoose.connect(DB_URI);
   });
 
@@ -19,7 +20,7 @@ describe('POST /signup', () => {
   });
 
   it('should create a new user, and login', async () => {
-    const response = await request(app)
+    const signup_response = await request(app)
       .post('/api/v1/auth/signup')
       .send({
         name: 'John Doe',
@@ -27,22 +28,24 @@ describe('POST /signup', () => {
         password: 'password123'
       });
 
-    expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('_id');
-    expect(response.body).toHaveProperty('name', 'John Doe');
-    expect(response.body).toHaveProperty('email', 'john@example.com');
+    const login_response = await request(app)
+      .post('/api/v1/auth/login')
+      .send({
+        email: "john@example.com",
+        password: "password123"
+      })
+
+    expect(login_response.status).toEqual(200)
+    expect(signup_response.status).toEqual(200);
+
+    expect(login_response.body._id).not.toBeNull();
+
+    expect(signup_response.body).toHaveProperty('_id');
+    expect(signup_response.body).toHaveProperty('name', 'John Doe');
+    expect(signup_response.body).toHaveProperty('email', 'john@example.com');
 
     const user = await User.findOne({ email: 'john@example.com' });
     expect(user).not.toBeNull();
-
-    it("should login", async () => {
-      const response = await request(app)
-        .post('api/v1/auth/login')
-        .send({ email: "john@example.com", password: "password123" })
-      expect(response.status).toBe(200)
-    })
-
-
   });
 
   it('should fail if email is missing', async () => {
