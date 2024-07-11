@@ -4,6 +4,7 @@ const event_schema = new Schema({
   event_name: {
     type: String,
     required: true,
+    unique: true
   },
   event_description: {
     type: String,
