@@ -27,6 +27,11 @@ app.use("/api/v1", router);
 app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
   // handle the status code properly
   // 1. Have it based on the err.message from a json file?
+  if (err.keyValue.event_name) {
+    res
+      .status(400)
+      .send({ error: true, message: "An event with the same name already exists" });
+  }
   if (err.message.includes("E11000 duplicate key error collection")) {
     res
       .status(400)

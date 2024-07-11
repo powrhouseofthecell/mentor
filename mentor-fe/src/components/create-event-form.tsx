@@ -59,7 +59,7 @@ export default function Create_Event_Form() {
     }
     setTimeout(() => {
       location.reload();
-    }, 500);
+    }, 900);
   }
   return (
     <Form {...form}>
