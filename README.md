@@ -52,12 +52,6 @@ Start the server
   npm run start
 ```
 
-## Tech Stack
-
-**Client:** NextJS, TailwindCSS
-
-**Server:** Node, Express, MongoDB
-
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your .env file
@@ -69,3 +63,9 @@ To run this project, you will need to add the following environment variables to
 `SSL_CERT_PATH`\
 `JWT_SECRET`\
 `TOKEN_COOKIE_EXPIRES_IN`
+
+## Tech Stack
+
+**Client:** NextJS, TailwindCSS
+
+**Server:** Node, Express, MongoDB
