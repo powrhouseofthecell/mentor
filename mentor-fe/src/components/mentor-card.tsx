@@ -74,86 +74,90 @@ export default function Mentors_Card({ className, ...props }: CardProps) {
         ""
       )}
       <div className="flex flex-wrap justify-center items-center gap-10">
-        {mentors_list.map((mentor: any, idx: any) => {
-          return (
-            <>
-              {mentor._id === get_local_storage("user_id") ? (
-                ""
-              ) : (
-                <Card
-                  key={idx}
-                  className={cn("w-[380px]", className)}
-                  {...props}
-                >
-                  <CardHeader>
-                    <div className="flex items-center">
-                      <Avatar>
-                        <AvatarFallback>
-                          {mentor.name.split("")[0]}
-                        </AvatarFallback>
-                      </Avatar>
-                      <CardTitle className="ml-3">{mentor.name}</CardTitle>
-                    </div>
-                    <CardDescription>Full Stack Developer</CardDescription>
-                  </CardHeader>
-                  <CardContent className="grid gap-4">
-                    <div className="flex items-center space-x-4 rounded-md border p-4">
-                      <HandHelping />
-                      <div className="flex-1 space-y-1">
-                        <p className="text-sm font-medium leading-none">
-                          Mentoring
-                        </p>
-                        <p className="text-sm text-muted-foreground">
-                          {mentor.mentees.length} Mentee/s
-                        </p>
+        {mentors_list?.length < 1 ? (
+          <p>No other mentors available at this time</p>
+        ) : (
+          mentors_list.map((mentor: any, idx: any) => {
+            return (
+              <>
+                {mentor._id === get_local_storage("user_id") ? (
+                  <p>No other mentors available at this time</p>
+                ) : (
+                  <Card
+                    key={idx}
+                    className={cn("w-[380px]", className)}
+                    {...props}
+                  >
+                    <CardHeader>
+                      <div className="flex items-center">
+                        <Avatar>
+                          <AvatarFallback>
+                            {mentor.name.split("")[0]}
+                          </AvatarFallback>
+                        </Avatar>
+                        <CardTitle className="ml-3">{mentor.name}</CardTitle>
                       </div>
-                    </div>
-                    <div>
-                      <div className="flex items-center space-x-4 rounded-md">
-                        <Send />
+                      <CardDescription>Full Stack Developer</CardDescription>
+                    </CardHeader>
+                    <CardContent className="grid gap-4">
+                      <div className="flex items-center space-x-4 rounded-md border p-4">
+                        <HandHelping />
                         <div className="flex-1 space-y-1">
                           <p className="text-sm font-medium leading-none">
-                            Email
+                            Mentoring
                           </p>
                           <p className="text-sm text-muted-foreground">
-                            {mentor.email}
+                            {mentor.mentees.length} Mentee/s
                           </p>
                         </div>
                       </div>
-                    </div>
-                  </CardContent>
-                  <CardFooter>
-                    {mentor.connect_request.includes(
-                      get_local_storage("user_id"),
-                    ) ? (
-                      <Button className="w-full" variant={"outline"}>
-                        <Loader size={16} />
-                        &nbsp; Request Sent
-                      </Button>
-                    ) : (
-                      <>
-                        {mentor.mentees.includes(
-                          get_local_storage("user_id"),
-                        ) ? (
-                          <Vaul_Scaled mentor_id={mentor._id} />
-                        ) : (
-                          <Button
-                            onClick={() => send_connect_req(mentor._id)}
-                            className="w-full"
-                            variant={"secondary"}
-                          >
-                            {" "}
-                            <UserRoundPlus size={16} /> &nbsp; Connect
-                          </Button>
-                        )}
-                      </>
-                    )}
-                  </CardFooter>
-                </Card>
-              )}
-            </>
-          );
-        })}
+                      <div>
+                        <div className="flex items-center space-x-4 rounded-md">
+                          <Send />
+                          <div className="flex-1 space-y-1">
+                            <p className="text-sm font-medium leading-none">
+                              Email
+                            </p>
+                            <p className="text-sm text-muted-foreground">
+                              {mentor.email}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                    <CardFooter>
+                      {mentor.connect_request.includes(
+                        get_local_storage("user_id"),
+                      ) ? (
+                        <Button className="w-full" variant={"outline"}>
+                          <Loader size={16} />
+                          &nbsp; Request Sent
+                        </Button>
+                      ) : (
+                        <>
+                          {mentor.mentees.includes(
+                            get_local_storage("user_id"),
+                          ) ? (
+                            <Vaul_Scaled mentor_id={mentor._id} />
+                          ) : (
+                            <Button
+                              onClick={() => send_connect_req(mentor._id)}
+                              className="w-full"
+                              variant={"secondary"}
+                            >
+                              {" "}
+                              <UserRoundPlus size={16} /> &nbsp; Connect
+                            </Button>
+                          )}
+                        </>
+                      )}
+                    </CardFooter>
+                  </Card>
+                )}
+              </>
+            );
+          })
+        )}
       </div>
     </>
   );
