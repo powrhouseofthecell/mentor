@@ -64,7 +64,6 @@ export default function Mentors_Card({ className, ...props }: CardProps) {
 
   return (
     <>
-      <h1 className="text-4xl pb-10 m-6 mt-0 font-black pt-16">Mentors</h1>
       {get_local_storage("user_role") === "mentor" ? (
         <Link href={"/mentors/meet"}>
           <Button className="bg-amber-200 fixed right-0 m-6 bottom-0">
@@ -84,7 +83,8 @@ export default function Mentors_Card({ className, ...props }: CardProps) {
                 <Card
                   key={idx}
                   className={cn("w-[380px]", className)}
-                  {...props}>
+                  {...props}
+                >
                   <CardHeader>
                     <div className="flex items-center">
                       <Avatar>
@@ -124,7 +124,7 @@ export default function Mentors_Card({ className, ...props }: CardProps) {
                   </CardContent>
                   <CardFooter>
                     {mentor.connect_request.includes(
-                      get_local_storage("user_id")
+                      get_local_storage("user_id"),
                     ) ? (
                       <Button className="w-full" variant={"outline"}>
                         <Loader size={16} />
@@ -133,14 +133,15 @@ export default function Mentors_Card({ className, ...props }: CardProps) {
                     ) : (
                       <>
                         {mentor.mentees.includes(
-                          get_local_storage("user_id")
+                          get_local_storage("user_id"),
                         ) ? (
                           <Vaul_Scaled mentor_id={mentor._id} />
                         ) : (
                           <Button
                             onClick={() => send_connect_req(mentor._id)}
                             className="w-full"
-                            variant={"secondary"}>
+                            variant={"secondary"}
+                          >
                             {" "}
                             <UserRoundPlus size={16} /> &nbsp; Connect
                           </Button>
