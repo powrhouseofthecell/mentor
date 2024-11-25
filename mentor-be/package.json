@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "pnpm dlx nodemon --exec ts-node src/server.ts",
+    "start": "tsc -b ; node dist/server.js",
     "test": "pnpm dlx jest"
   },
   "keywords": [],

@@ -7,7 +7,7 @@ import app from "./app";
 import create_db_con from "./utils/db/create_con";
 
 const DB_URI = process.env.DB_URI?.replace(
-  "<password>",
+  "<db_password>",
   process.env.DB_PASSWORD as string,
 ) as string;
 
