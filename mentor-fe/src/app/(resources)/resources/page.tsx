@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Cog, Upload } from "lucide-react";
 import Upload_Resources from "@/components/upload-resources";
 import { toast } from "sonner";
+import { get_local_storage } from "@/lib/local-storage";
 
 export default function All_Resources() {
   const [resources, set_resources] = useState<any>([]);
@@ -38,7 +39,7 @@ export default function All_Resources() {
         <h1 className="text-4xl pb-10 m-6 mt-0 font-black">
           Resources Section
         </h1>
-        {localStorage?.getItem("user_role") === "mentor" ? (
+        {get_local_storage("user_role") === "mentor" ? (
           <Upload_Resources
             get_resources={get_resources}
             set_resources={set_resources}

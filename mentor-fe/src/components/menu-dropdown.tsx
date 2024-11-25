@@ -26,6 +26,7 @@ import {
   ShieldHalf,
 } from "lucide-react";
 import Link from "next/link";
+import { remove_local_storage, set_local_storage } from "@/lib/local-storage";
 
 export function Dropdown_Menu() {
   const router = useRouter();
@@ -39,8 +40,12 @@ export function Dropdown_Menu() {
       });
       if (!response.data.error) {
         toast.info("You are logged out!");
-        localStorage?.setItem("isLoggedIn", "false");
-        localStorage?.removeItem("user_id");
+
+        set_local_storage("isLoggedIn", "false");
+        remove_local_storage("isLoggedIn");
+        remove_local_storage("user_id");
+        remove_local_storage("user_role");
+
         router.push("/login");
       }
     } catch (error: any) {

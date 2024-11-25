@@ -20,6 +20,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Link from "next/link";
+import { get_local_storage, set_local_storage } from "@/lib/local-storage";
 
 const formSchema = z.object({
   email: z.string().email("Not a valid email"),
@@ -46,9 +47,9 @@ export default function ProfileForm() {
       });
       if (!response.data.error) {
         toast.success("Login successful");
-        localStorage?.setItem("isLoggedIn", "true");
-        localStorage?.setItem("user_id", response.data._id);
-        localStorage?.setItem("user_role", response.data.role);
+        set_local_storage("isLoggedIn", "true");
+        set_local_storage("user_id", response.data._id);
+        set_local_storage("user_role", response.data.role);
         router.push("/events");
       }
     } catch (error: any) {
@@ -61,8 +62,7 @@ export default function ProfileForm() {
       <div className="form_container flex items-center justify-center h-lvh">
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="px-16 py-24 border-solid border-2 border-gray-600 rounded-2xl space-y-8"
-        >
+          className="px-16 py-24 border-solid border-2 border-gray-600 rounded-2xl space-y-8">
           {/*  */}
           <h1 className="text-4xl font-black">Login</h1>
           <FormField

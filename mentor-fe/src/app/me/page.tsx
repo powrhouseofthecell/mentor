@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import My_Mentees_List from "@/components/my-mentees-list";
 import My_Mentors_List from "@/components/my-mentors-list";
+import { get_local_storage } from "@/lib/local-storage";
 
 type user_type = {
   _id: string;
@@ -34,7 +35,7 @@ export default function Me() {
   const [user, set_user] = useState<user_type>();
 
   useEffect(() => {
-    const id = localStorage.getItem("user_id");
+    const id = get_local_storage("user_id");
     const url = `${BASE_URL}/mentors/${id}`;
     get_mentor(url).then((mentor) => {
       set_user(mentor?.data[0]);
@@ -65,7 +66,7 @@ export default function Me() {
         withCredentials: true,
       });
       toast.info("Connected!");
-      location.reload()
+      location.reload();
       return mentor;
     } catch (error: any) {
       toast.error(`${error.response.data.message}`);
@@ -152,8 +153,7 @@ export default function Me() {
                       return (
                         <div
                           key={idx}
-                          className="rounded-md border px-4 py-3 font-mono text-sm flex justify-between items-center"
-                        >
+                          className="rounded-md border px-4 py-3 font-mono text-sm flex justify-between items-center">
                           <span className="flex items-center">
                             <Avatar>
                               <AvatarFallback>
@@ -165,8 +165,7 @@ export default function Me() {
                           </span>
                           <Button
                             onClick={() => accept_connection_req(mentee._id)}
-                            variant={"secondary"}
-                          >
+                            variant={"secondary"}>
                             Accept
                             {/* <CheckIcon size={16} /> */}
                           </Button>

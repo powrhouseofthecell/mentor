@@ -41,7 +41,7 @@ export type Attendies_Type = {
   email: string;
 };
 
-export const columns: ColumnDef<Attendies_Type>[] = [
+const columns: ColumnDef<Attendies_Type>[] = [
   {
     accessorKey: "name",
     header: "Name",
