@@ -36,7 +36,7 @@ Install dependencies
 Start the server
 
 ```bash
-  npm run start
+  pnpm run start
 ```
 
 **Start the frontend**
@@ -54,7 +54,7 @@ Install dependencies
 Start the server
 
 ```bash
-  npm run start
+  pnpm run start
 ```
 
 ## Environment Variables
