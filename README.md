@@ -6,6 +6,13 @@ A user-friendly platform connecting mentees with mentors for guidance and growth
 
 [https://umentor.vercel.app](https://umentor.vercel.app)
 
+_Use the credentials_
+
+| Role   | Email              | Password     |
+| ------ | ------------------ | ------------ |
+| Mentor | `mentor@email.com` | `Mentor@123` |
+| Mentee | `jon@email.com`    | `Jon@123`    |
+
 ## Run Locally
 
 Clone the project
@@ -31,8 +38,6 @@ Start the server
 ```bash
   npm run start
 ```
-
-Note: Check for self-signed SSL certificate
 
 **Start the frontend**
 
